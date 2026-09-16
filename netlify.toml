@@ -1,0 +1,52 @@
+# ==========================================================================
+# netlify.toml — there is no build step. Netlify just serves these files.
+# ==========================================================================
+
+[build]
+  publish = "."
+  command = ""
+
+# --- Security headers -------------------------------------------------------
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), camera=(), microphone=(), interest-cohort=()"
+    # If you ever move the fonts to self-hosted, delete the two Google
+    # entries below — nothing else here needs to change.
+    Content-Security-Policy = "default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; media-src 'self'; frame-src https://www.bandlab.com; base-uri 'self'; form-action 'self'; object-src 'none'; frame-ancestors 'none'"
+
+# --- Caching ----------------------------------------------------------------
+# HTML must stay fresh so edits appear immediately.
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# Everything else is content you replace by filename, so cache it hard.
+[[headers]]
+  for = "/audio/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/media/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/fonts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# CSS and JS are edited in place, so revalidate rather than cache forever.
+[[headers]]
+  for = "/styles/*"
+  [headers.values]
+    Cache-Control = "public, max-age=3600, must-revalidate"
+
+[[headers]]
+  for = "/scripts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=3600, must-revalidate"

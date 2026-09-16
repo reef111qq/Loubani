@@ -1,0 +1,233 @@
+/* ==========================================================================
+   pages.css — layout for each page. Components themselves live in
+   components.css; this file only arranges them.
+   ========================================================================== */
+
+main { position: relative; z-index: 1; view-transition-name: page; }
+
+/* Page-level cross-fade. The nav stays put (it has its own transition name). */
+::view-transition-old(page) { animation: page-out 160ms var(--ease) both; }
+::view-transition-new(page) { animation: page-in  280ms var(--ease-out) both; }
+@keyframes page-out { to { opacity: 0; transform: translateY(-6px); } }
+@keyframes page-in  { from { opacity: 0; transform: translateY(10px); } }
+
+/* ==========================================================================
+   HOME — hero
+   ========================================================================== */
+.hero {
+  display: grid;
+  gap: var(--space-xl) var(--space-2xl);
+  align-items: center;
+  padding-block: clamp(2.5rem, 1rem + 7vw, 6rem) var(--space-2xl);
+}
+@media (min-width: 820px) {
+  .hero { grid-template-columns: 1.15fr 0.85fr; }
+}
+
+.hero__greeting {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: var(--space-s);
+  display: block;
+}
+.hero__name {
+  margin-bottom: var(--space-m);
+  font-variation-settings: 'wdth' 76;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+}
+.hero__name em {
+  font-style: normal;
+  color: var(--red);
+  display: block;
+}
+/* Hero pull-quote. The red rule echoes the "The problem" treatment on the
+   project cards, so the two pages share a gesture. */
+.hero__quote {
+  margin: 0 0 var(--space-l);
+  max-width: 46ch;
+  border-left: 2px solid var(--red);
+  padding-left: var(--space-m);
+}
+.hero__quote p {
+  font-size: var(--step-1);
+  color: var(--bone-dim);
+  margin-bottom: var(--space-2xs);
+}
+.hero__quote cite {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--amber-text);
+  font-style: normal;
+}
+
+.hero__links { display: flex; flex-wrap: wrap; gap: var(--space-s); list-style: none; margin: 0; padding: 0; }
+
+/* Portrait — sits in a chrome frame with a recessed shadow. */
+.hero__figure { margin: 0; }
+@media (max-width: 819px) { .hero__figure { order: -1; } }
+
+.portrait {
+  position: relative;
+  border: 1px solid var(--chrome-edge);
+  border-radius: var(--radius-lg);
+  background: var(--lacquer-sunk);
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+  box-shadow: var(--shadow-lift);
+  max-width: 420px;
+  margin-inline: auto;
+}
+.portrait img { width: 100%; height: 100%; object-fit: cover; }
+.portrait::after {                 /* a lit edge, like glass over a dial */
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(145deg, rgba(255,255,255,0.09), transparent 42%);
+}
+
+/* Photo sits above the text on a phone, but stays small so the name is still
+   the first thing on screen rather than being pushed below the fold. */
+@media (max-width: 819px) {
+  .portrait { max-width: 240px; }
+  .hero { padding-block: var(--space-l) var(--space-xl); gap: var(--space-l); }
+}
+
+/* ==========================================================================
+   HOME — gauge cluster
+   ========================================================================== */
+.gauges {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(148px, 1fr));
+  gap: var(--space-l) var(--space-m);
+  padding: var(--space-xl) var(--space-m);
+  margin: 0;
+}
+/* Cap the dial itself so a short row of gauges doesn't stretch them wide. */
+.gauges .gauge { max-width: 240px; margin-inline: auto; width: 100%; }
+
+/* ==========================================================================
+   Shared card grids
+   ========================================================================== */
+.grid { display: grid; gap: var(--space-m); }
+.grid--3 { grid-template-columns: repeat(auto-fit, minmax(255px, 1fr)); }
+.grid--2 { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+
+/* ==========================================================================
+   ABOUT
+   ========================================================================== */
+.about-lede {
+  font-size: var(--step-2);
+  font-family: var(--font-display);
+  font-variation-settings: 'wdth' 90;
+  line-height: var(--leading-snug);
+  max-width: 24ch;
+}
+@media (min-width: 900px) {
+  .about-intro { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: var(--space-2xl); align-items: start; }
+}
+
+.interests { display: grid; gap: var(--space-m); grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); }
+.interest { padding: var(--space-m); }
+.interest h3 { margin-bottom: var(--space-2xs); color: var(--bone); }
+.interest p:last-child { margin-bottom: 0; }
+.interest__no {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: 0.16em;
+  color: var(--amber);
+  display: block;
+  margin-bottom: var(--space-2xs);
+}
+
+/* ==========================================================================
+   MUSIC
+   ========================================================================== */
+.embeds { display: grid; gap: var(--space-m); grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+
+@media (min-width: 900px) {
+  .music-split { display: grid; grid-template-columns: 1.25fr 0.75fr; gap: var(--space-2xl); align-items: start; }
+}
+
+/* ==========================================================================
+   CONTACT
+   ========================================================================== */
+@media (min-width: 860px) {
+  .contact-split { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: var(--space-2xl); align-items: start; }
+}
+.contact-aside { padding: var(--space-m); }
+.contact-aside dl { margin: 0; }
+.contact-aside dt {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-top: var(--space-m);
+}
+.contact-aside dt:first-child { margin-top: 0; }
+.contact-aside dd { margin: var(--space-3xs) 0 0; }
+
+/* ==========================================================================
+   PROJECT WRITEUPS
+   ========================================================================== */
+.writeup { max-width: 72ch; }
+.writeup__back {
+  display: inline-flex;
+  gap: 0.5em;
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  margin-bottom: var(--space-m);
+}
+.writeup__figure {
+  margin: 0 0 var(--space-l);
+  border: 1px solid var(--chrome-edge);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--lacquer-sunk);
+  box-shadow: var(--shadow-panel);
+}
+.writeup__figure img,
+.writeup__figure video { width: 100%; display: block; }
+.writeup__figure figcaption {
+  padding: var(--space-xs) var(--space-s);
+  border-top: 1px solid var(--chrome-edge);
+  font-size: var(--step--1);
+  color: var(--bone-dim);
+}
+.writeup h2 {
+  font-size: var(--step-2);
+  margin-top: var(--space-l);
+  padding-top: var(--space-s);
+  border-top: 1px solid var(--chrome-edge);
+}
+.writeup .btn { margin-top: var(--space-l); }
+
+/* ==========================================================================
+   MINIMAL PAGES (thanks, 404)
+   ========================================================================== */
+.slab {
+  min-height: 62svh;
+  display: grid;
+  place-content: center;
+  text-align: center;
+  gap: var(--space-s);
+  padding-block: var(--space-2xl);
+}
+.slab__code {
+  font-family: var(--font-mono);
+  font-size: var(--step-2);
+  letter-spacing: 0.3em;
+  color: var(--amber);
+}
+.slab p { margin-inline: auto; }
+.slab .btn { justify-self: center; }

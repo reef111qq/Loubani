@@ -1,0 +1,12 @@
+.DS_Store
+Thumbs.db
+*.log
+.netlify/
+.vscode/
+.idea/
+
+# Keep raw, unexported source material out of the repo — only the finished
+# web-ready files in /audio and /media belong here.
+*.wav.original
+/audio/_raw/
+/media/_raw/

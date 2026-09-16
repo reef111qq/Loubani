@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Music — Reef Loubani</title>
+<meta name="description" content="Beats and instrumentals produced by Reef Loubani, plus the tracks he has on repeat right now.">
+<link rel="canonical" href="https://reefloubani.com/music.html">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Music — Reef Loubani">
+<meta property="og:description" content="Beats and instrumentals, plus what's on repeat.">
+<meta property="og:url" content="https://reefloubani.com/music.html">
+<meta property="og:image" content="https://reefloubani.com/media/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="site.webmanifest">
+<meta name="theme-color" content="#0E1116">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Inter:wght@400..600&family=Roboto+Mono:wght@400..600&display=swap">
+
+<link rel="stylesheet" href="styles/tokens.css">
+<link rel="stylesheet" href="styles/base.css">
+<link rel="stylesheet" href="styles/components.css">
+<link rel="stylesheet" href="styles/pages.css">
+<script type="module" src="scripts/main.js"></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="cluster">
+  <div class="cluster__inner">
+    <a class="cluster__mark" href="index.html">RL</a>
+    <nav class="cluster__tabs" aria-label="Primary">
+      <ul class="cluster__list">
+        <li><a class="cluster__link" href="index.html">Home</a></li>
+        <li><a class="cluster__link" href="projects.html">Projects</a></li>
+        <li><a class="cluster__link" href="music.html" aria-current="page">Music</a></li>
+        <li><a class="cluster__link" href="about.html">About</a></li>
+        <li><a class="cluster__link" href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="wrap section" aria-labelledby="music-heading">
+    <div class="section-head">
+      <span class="section-head__eyebrow">Made</span>
+      <h1 id="music-heading">Music</h1>
+      <p class="section-head__lede">
+        Beats and instrumentals. Some finished, some permanently three quarters done.
+      </p>
+    </div>
+
+    <div class="music-split">
+      <div>
+
+        <!-- ===== THE DECK ===============================================
+             The playlist below is a list of ordinary links to mp3 files.
+             With JavaScript off they are working download links; with it on
+             they become an in-page playlist.
+
+             TO ADD A TRACK: drop the file into /audio and copy one <li>.
+             Keep this to about five tracks so the repo stays small — use
+             128 to 192 kbps mp3, under roughly 4 MB each.
+             ============================================================== -->
+        <div class="deck" data-player>
+          <h2 class="vh">Track player</h2>
+
+          <div class="deck__lcd">
+            <span class="deck__now" data-now aria-live="polite">&mdash;</span>
+            <span class="deck__time">
+              <span data-elapsed>0:00</span> / <span data-duration>0:00</span>
+            </span>
+          </div>
+
+          <div class="deck__controls">
+            <button type="button" class="deck__btn" data-prev aria-label="Previous track">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6h2v12H6zM20 6l-10 6 10 6z"/></svg>
+            </button>
+
+            <button type="button" class="deck__btn deck__btn--play" data-toggle aria-label="Play">
+              <svg viewBox="0 0 24 24" aria-hidden="true" data-icon-play><path d="M7 5l12 7-12 7z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true" data-icon-pause><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/></svg>
+            </button>
+
+            <button type="button" class="deck__btn" data-next aria-label="Next track">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 6h2v12h-2zM4 6l10 6-10 6z"/></svg>
+            </button>
+
+            <input class="deck__scrub" type="range" data-scrub min="0" max="100" step="0.1" value="0" aria-label="Seek within track">
+            <span class="deck__vol-group">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h3.5L12 5v14l-4.5-4H4zm12.5-1.2a5 5 0 0 1 0 8.4l-1-1.7a3 3 0 0 0 0-5z"/></svg>
+              <input class="deck__vol" type="range" data-vol min="0" max="1" step="0.01" value="0.8" aria-label="Volume">
+            </span>
+          </div>
+
+          <ol class="deck__list">
+            <!-- TEMPLATE — copy this list item for each new track:
+            <li>
+              <a class="deck__track" href="audio/FILENAME.mp3" data-track
+                 data-title="TRACK TITLE" data-duration="0:00">
+                <span class="deck__track-num">01</span>
+                <span class="deck__track-title">TRACK TITLE</span>
+                <span class="deck__track-time">0:00</span>
+              </a>
+            </li>
+            -->
+            <li>
+              <a class="deck__track" href="audio/demo-one.wav" data-track data-title="Placeholder One" data-duration="0:06">
+                <span class="deck__track-num">01</span>
+                <span class="deck__track-title">Placeholder One</span>
+                <span class="deck__track-time">0:06</span>
+              </a>
+            </li>
+            <li>
+              <a class="deck__track" href="audio/demo-two.wav" data-track data-title="Placeholder Two" data-duration="0:06">
+                <span class="deck__track-num">02</span>
+                <span class="deck__track-title">Placeholder Two</span>
+                <span class="deck__track-time">0:06</span>
+              </a>
+            </li>
+            <li>
+              <a class="deck__track" href="audio/demo-three.wav" data-track data-title="Placeholder Three" data-duration="0:06">
+                <span class="deck__track-num">03</span>
+                <span class="deck__track-title">Placeholder Three</span>
+                <span class="deck__track-time">0:06</span>
+              </a>
+            </li>
+          </ol>
+
+          <p class="deck__empty" data-empty hidden>
+            No tracks yet. Drop mp3 files into the <span class="mono">/audio</span> folder and add them to the list above.
+          </p>
+
+          <audio data-audio preload="none"></audio>
+        </div>
+
+      </div>
+
+      <!-- ===== WHAT I'M LISTENING TO =====================================
+           A hand-kept list. Not the Spotify API — you edit this yourself.
+           TO ADD: copy one <li class="spin">, change the text and the image.
+           Cover art: about 96x96, saved into media/listening/.
+           ================================================================= -->
+      <aside aria-labelledby="spins-heading">
+        <div class="section-head">
+          <span class="section-head__eyebrow">On repeat</span>
+          <h2 id="spins-heading">Listening lately</h2>
+        </div>
+
+        <ul class="spins reveal">
+          <li class="spin">
+            <span class="spin__num">01</span>
+            <img class="spin__art" src="media/placeholder-art.svg" alt="" width="96" height="96" loading="lazy" decoding="async">
+            <div class="spin__text">
+              <p class="spin__track">Track title</p>
+              <p class="spin__artist">Artist name</p>
+            </div>
+          </li>
+          <li class="spin">
+            <span class="spin__num">02</span>
+            <img class="spin__art" src="media/placeholder-art.svg" alt="" width="96" height="96" loading="lazy" decoding="async">
+            <div class="spin__text">
+              <p class="spin__track">Track title</p>
+              <p class="spin__artist">Artist name</p>
+            </div>
+          </li>
+          <li class="spin">
+            <span class="spin__num">03</span>
+            <img class="spin__art" src="media/placeholder-art.svg" alt="" width="96" height="96" loading="lazy" decoding="async">
+            <div class="spin__text">
+              <p class="spin__track">Track title</p>
+              <p class="spin__artist">Artist name</p>
+            </div>
+          </li>
+          <li class="spin">
+            <span class="spin__num">04</span>
+            <img class="spin__art" src="media/placeholder-art.svg" alt="" width="96" height="96" loading="lazy" decoding="async">
+            <div class="spin__text">
+              <p class="spin__track">Track title</p>
+              <p class="spin__artist">Artist name</p>
+            </div>
+          </li>
+          <li class="spin">
+            <span class="spin__num">05</span>
+            <img class="spin__art" src="media/placeholder-art.svg" alt="" width="96" height="96" loading="lazy" decoding="async">
+            <div class="spin__text">
+              <p class="spin__track">Track title</p>
+              <p class="spin__artist">Artist name</p>
+            </div>
+          </li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <!-- ===== BANDLAB ========================================================
+       Each embed starts as a still card and only loads the real BandLab
+       iframe when someone clicks it — that keeps the page fast and runs no
+       third-party code for visitors who never press play.
+
+       TO ADD ONE: open the track on BandLab, Share > Embed, and copy the
+       src URL out of the code it gives you into data-embed below.
+       ====================================================================== -->
+  <section class="wrap section" aria-labelledby="bandlab-heading">
+    <div class="section-head">
+      <span class="section-head__eyebrow">On BandLab</span>
+      <h2 id="bandlab-heading">Full tracks</h2>
+    </div>
+
+    <div class="embeds">
+      <button type="button" class="facade reveal" data-facade
+              data-embed="https://www.bandlab.com/embed/?id=REPLACE-WITH-TRACK-ID"
+              data-title="BandLab player: Track name">
+        <img src="media/placeholder-art.svg" alt="" width="200" height="200" loading="lazy" decoding="async">
+        <span class="facade__play" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M7 5l12 7-12 7z"/></svg>
+        </span>
+        <span class="facade__overlay">
+          <span class="facade__meta">BandLab</span>
+          <span class="facade__title">Track name</span>
+        </span>
+      </button>
+
+      <button type="button" class="facade reveal" data-facade
+              data-embed="https://www.bandlab.com/embed/?id=REPLACE-WITH-TRACK-ID"
+              data-title="BandLab player: Track name">
+        <img src="media/placeholder-art.svg" alt="" width="200" height="200" loading="lazy" decoding="async">
+        <span class="facade__play" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M7 5l12 7-12 7z"/></svg>
+        </span>
+        <span class="facade__overlay">
+          <span class="facade__meta">BandLab</span>
+          <span class="facade__title">Track name</span>
+        </span>
+      </button>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot__inner">
+    <p class="mono">&copy; Reef Loubani</p>
+    <p><a href="contact.html">reefloubani@gmail.com</a></p>
+  </div>
+</footer>
+
+</body>
+</html>

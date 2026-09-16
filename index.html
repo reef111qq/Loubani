@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- REPLACE: tagline in the title, and the description below. Keep the name first. -->
+<title>Reef Loubani — Builder, AI Engineer, Music Producer</title>
+<meta name="description" content="Reef Loubani builds AI agents, desktop software and personal tools — and makes beats. Projects, music, and what he's into, in one place.">
+<link rel="canonical" href="https://reefloubani.com/index.html">
+
+<meta property="og:type" content="profile">
+<meta property="og:title" content="Reef Loubani">
+<meta property="og:description" content="Builder, AI engineer, music producer. Projects, music, and what he's into.">
+<meta property="og:url" content="https://reefloubani.com/index.html">
+<meta property="og:image" content="https://reefloubani.com/media/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="site.webmanifest">
+<meta name="theme-color" content="#0E1116">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Inter:wght@400..600&family=Roboto+Mono:wght@400..600&display=swap">
+
+<link rel="stylesheet" href="styles/tokens.css">
+<link rel="stylesheet" href="styles/base.css">
+<link rel="stylesheet" href="styles/components.css">
+<link rel="stylesheet" href="styles/pages.css">
+<script type="module" src="scripts/main.js"></script>
+
+<!-- This block is what ties reefloubani.com to your existing profiles when
+     someone searches your name. REPLACE: the GitHub URL is still a placeholder. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Reef Loubani",
+  "url": "https://reefloubani.com/",
+  "jobTitle": "Software Engineer",
+  "email": "mailto:reefloubani@gmail.com",
+  "knowsAbout": ["Artificial Intelligence", "AI Agents", "Software Engineering", "Music Production"],
+  "sameAs": [
+    "https://github.com/REPLACE-ME",
+    "https://www.linkedin.com/in/reef-loubani-is-pretty-cool/",
+    "https://www.bandlab.com/madebyreef"
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- ==========================================================================
+     NAV — this block is duplicated in all five pages. If you edit it, edit it
+     in index.html, projects.html, music.html, about.html and contact.html.
+     The only difference between copies is which link carries aria-current.
+     ========================================================================== -->
+<header class="cluster">
+  <div class="cluster__inner">
+    <a class="cluster__mark" href="index.html">RL</a>
+    <nav class="cluster__tabs" aria-label="Primary">
+      <ul class="cluster__list">
+        <li><a class="cluster__link" href="index.html" aria-current="page">Home</a></li>
+        <li><a class="cluster__link" href="projects.html">Projects</a></li>
+        <li><a class="cluster__link" href="music.html">Music</a></li>
+        <li><a class="cluster__link" href="about.html">About</a></li>
+        <li><a class="cluster__link" href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ===== HERO ========================================================== -->
+  <section class="wrap hero" aria-labelledby="hero-name">
+    <div>
+      <span class="hero__greeting">Hello, I'm</span>
+      <h1 class="hero__name" id="hero-name">Reef <em>Loubani</em></h1>
+
+      <blockquote class="hero__quote">
+        <p>&ldquo;If I asked people what they wanted, they would have said fast horses.&rdquo;</p>
+        <cite>Henry Ford</cite>
+      </blockquote>
+
+      <!-- REPLACE: the GitHub href below is still a placeholder. -->
+      <ul class="hero__links">
+        <li><a class="btn" href="#">GitHub</a></li>
+        <li><a class="btn" href="https://www.linkedin.com/in/reef-loubani-is-pretty-cool/">LinkedIn</a></li>
+        <li><a class="btn btn--primary" href="contact.html">Get in touch</a></li>
+      </ul>
+    </div>
+
+    <figure class="hero__figure">
+      <div class="portrait">
+        <!-- REPLACE: swap in media/portrait.jpg (around 1200x1500) and update the alt text. -->
+        <img src="media/placeholder-portrait.svg" alt="Reef Loubani" width="800" height="1000" fetchpriority="high" decoding="async">
+      </div>
+    </figure>
+  </section>
+
+  <hr class="rule">
+
+  <!-- ===== GAUGES ========================================================
+       Each gauge needs data-value and data-max. data-max sets where the
+       needle reaches full scale, so pick a number a bit above the value.
+       The age gauge is different: give it data-birthdate and it works its
+       own age out every time the page loads, so it never goes stale.
+       ===================================================================== -->
+  <section class="wrap" aria-labelledby="stats-heading">
+    <h2 class="vh" id="stats-heading">By the numbers</h2>
+
+    <div class="gauges">
+
+      <!-- REPLACE: your real date of birth, as YYYY-MM-DD. -->
+      <figure class="gauge reveal" data-gauge data-birthdate="2003-01-11" data-max="40" data-label="Age">
+        <div class="gauge__dial-wrap">
+          <svg class="gauge__dial" viewBox="0 0 200 200" role="img" aria-label="Age: 23">
+            <g transform="rotate(150 100 100)" fill="none">
+              <circle class="gauge__ticks" cx="100" cy="100" r="88"/>
+              <circle class="gauge__track" cx="100" cy="100" r="76"/>
+              <circle class="gauge__redline" cx="100" cy="100" r="76"/>
+              <circle class="gauge__value" cx="100" cy="100" r="76"/>
+            </g>
+            <g class="gauge__needle"><line x1="100" y1="100" x2="100" y2="36"/></g>
+            <circle class="gauge__hub" cx="100" cy="100" r="6"/>
+          </svg>
+          <span class="gauge__readout" data-readout>23</span>
+        </div>
+        <figcaption class="gauge__label">Age</figcaption>
+      </figure>
+
+      <!-- REPLACE: data-value, and the number inside the readout span. -->
+      <figure class="gauge reveal" data-gauge data-value="210" data-max="300" data-label="Movies watched">
+        <div class="gauge__dial-wrap">
+          <svg class="gauge__dial" viewBox="0 0 200 200" role="img" aria-label="Movies watched: 210">
+            <g transform="rotate(150 100 100)" fill="none">
+              <circle class="gauge__ticks" cx="100" cy="100" r="88"/>
+              <circle class="gauge__track" cx="100" cy="100" r="76"/>
+              <circle class="gauge__redline" cx="100" cy="100" r="76"/>
+              <circle class="gauge__value" cx="100" cy="100" r="76"/>
+            </g>
+            <g class="gauge__needle"><line x1="100" y1="100" x2="100" y2="36"/></g>
+            <circle class="gauge__hub" cx="100" cy="100" r="6"/>
+          </svg>
+          <span class="gauge__readout" data-readout>210</span>
+        </div>
+        <figcaption class="gauge__label">Movies watched</figcaption>
+      </figure>
+
+      <figure class="gauge reveal" data-gauge data-value="10" data-max="15" data-label="Projects started">
+        <div class="gauge__dial-wrap">
+          <svg class="gauge__dial" viewBox="0 0 200 200" role="img" aria-label="Projects started: 10">
+            <g transform="rotate(150 100 100)" fill="none">
+              <circle class="gauge__ticks" cx="100" cy="100" r="88"/>
+              <circle class="gauge__track" cx="100" cy="100" r="76"/>
+              <circle class="gauge__redline" cx="100" cy="100" r="76"/>
+              <circle class="gauge__value" cx="100" cy="100" r="76"/>
+            </g>
+            <g class="gauge__needle"><line x1="100" y1="100" x2="100" y2="36"/></g>
+            <circle class="gauge__hub" cx="100" cy="100" r="6"/>
+          </svg>
+          <span class="gauge__readout" data-readout>10</span>
+        </div>
+        <figcaption class="gauge__label">Projects started</figcaption>
+      </figure>
+
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <!-- ===== ROUTES TO THE OTHER PAGES ===================================== -->
+  <section class="wrap section" aria-labelledby="routes-heading">
+    <div class="section-head">
+      <span class="section-head__eyebrow">Where to next</span>
+      <h2 id="routes-heading">Three ways in</h2>
+    </div>
+
+    <div class="grid grid--3">
+      <article class="card reveal">
+        <div class="card__body">
+          <h3 class="card__title"><span class="plate">01 — Projects</span></h3>
+          <p>Desktop software, a health dashboard I actually use every day, and the AI work I do professionally.</p>
+          <a class="link-arrow" href="projects.html">See the work <span aria-hidden="true">&rarr;</span></a>
+        </div>
+      </article>
+
+      <article class="card reveal">
+        <div class="card__body">
+          <h3 class="card__title"><span class="plate">02 — Music</span></h3>
+          <p>Beats and instrumentals I've made, plus whatever's currently on repeat.</p>
+          <a class="link-arrow" href="music.html">Have a listen <span aria-hidden="true">&rarr;</span></a>
+        </div>
+      </article>
+
+      <article class="card reveal">
+        <div class="card__body">
+          <h3 class="card__title"><span class="plate">03 — About</span></h3>
+          <p>Muscle cars, military and financial history, Renaissance painting, Greek myth, and cutting hair.</p>
+          <a class="link-arrow" href="about.html">The rest of it <span aria-hidden="true">&rarr;</span></a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap foot__inner">
+    <p class="mono">&copy; Reef Loubani</p>
+    <p><a href="contact.html">reefloubani@gmail.com</a></p>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,660 @@
+/* ==========================================================================
+   components.css — nav, gauges, cards, the tape deck, forms, buttons.
+   Every reusable piece of UI. Page-specific layout lives in pages.css.
+   ========================================================================== */
+
+/* ==========================================================================
+   1. INSTRUMENT CLUSTER (the nav)
+   A chrome-bezelled tab strip. The active tab is lit amber with an LED.
+   `view-transition-name` keeps it fixed in place while pages cross-fade.
+   ========================================================================== */
+.cluster {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  view-transition-name: cluster;
+  background: color-mix(in srgb, var(--lacquer) 84%, transparent);
+  backdrop-filter: blur(14px) saturate(1.3);
+  -webkit-backdrop-filter: blur(14px) saturate(1.3);
+}
+.cluster::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 1px;
+  background: var(--hairline);
+  opacity: 0.6;
+}
+
+.cluster__inner {
+  width: min(100% - (var(--gutter) * 2), var(--page-max));
+  margin-inline: auto;
+  min-height: var(--nav-h);
+  display: flex;
+  align-items: center;
+  gap: var(--space-m);
+}
+
+.cluster__mark {
+  font-family: var(--font-display);
+  font-variation-settings: 'wdth' 78;
+  font-weight: 800;
+  font-size: 1.05rem;
+  letter-spacing: 0.14em;
+  color: var(--bone);
+  text-decoration: none;
+  padding: 0.35em 0.6em;
+  border: 1px solid var(--chrome-edge);
+  border-radius: 3px;
+  background: var(--bezel);
+  flex: none;
+}
+.cluster__mark:hover { color: var(--amber); border-color: var(--amber-dim); }
+
+/* On narrow screens the strip scrolls sideways — no hamburger, no JS. */
+.cluster__tabs {
+  margin-left: auto;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  overscroll-behavior-x: contain;
+}
+.cluster__tabs::-webkit-scrollbar { display: none; }
+
+.cluster__list {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.cluster__link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  height: var(--nav-h);
+  padding-inline: clamp(0.7rem, 0.4rem + 1vw, 1.15rem);
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--bone-dim);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color var(--dur-fast) var(--ease);
+}
+.cluster__link::before {            /* the LED */
+  content: "";
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: #2A2F36;
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.6);
+  transition: background var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+.cluster__link::after {             /* the lit underbar */
+  content: "";
+  position: absolute;
+  left: 0.6rem; right: 0.6rem; bottom: 0;
+  height: 2px;
+  background: var(--amber);
+  transform: scaleX(0);
+  transition: transform var(--dur) var(--ease);
+}
+.cluster__link:hover { color: var(--bone); }
+.cluster__link:hover::before { background: var(--amber-dim); }
+
+.cluster__link[aria-current="page"] { color: var(--amber); }
+.cluster__link[aria-current="page"]::before {
+  background: var(--amber);
+  box-shadow: 0 0 7px var(--amber-glow), 0 0 2px var(--amber);
+}
+.cluster__link[aria-current="page"]::after { transform: scaleX(1); }
+
+/* On a phone, drop the "RL" mark (the Home tab goes to the same place) and
+   tighten the tabs so all five fit without anyone needing to discover that
+   the strip scrolls. The overflow-x above stays as a safety net. */
+@media (max-width: 560px) {
+  .cluster__mark { display: none; }
+  .cluster__tabs { margin-inline: auto; }
+  .cluster__link {
+    padding-inline: 0.42rem;
+    gap: 0.3em;
+    letter-spacing: 0.04em;
+    font-size: 0.68rem;
+  }
+  .cluster__link::before { width: 4px; height: 4px; }
+  .cluster__link::after { left: 0.3rem; right: 0.3rem; }
+}
+
+/* ==========================================================================
+   2. GAUGES
+   Geometry, once, so the numbers below make sense:
+     r = 76  ->  circumference 477.522
+     the dial is a 240 degree arc  ->  318.348 of that circumference
+     the 120 degree gap sits at the bottom (rotated 150deg in the markup)
+     ticks ride at r = 88, redline covers the last 15% of the arc
+   JS sets --angle and stroke-dashoffset. Everything else is static.
+   ========================================================================== */
+.gauge {
+  position: relative;
+  margin: 0;
+  text-align: center;
+}
+
+.gauge__dial-wrap { position: relative; }
+.gauge__dial { width: 100%; height: auto; display: block; overflow: visible; }
+
+.gauge__ticks {
+  stroke: var(--chrome-lo);
+  stroke-width: 2;
+  stroke-dasharray: 2 44.077;
+  opacity: 0.5;
+}
+.gauge__track {
+  stroke: #232A33;
+  stroke-width: 9;
+  stroke-dasharray: 318.348 477.522;
+}
+.gauge__redline {
+  stroke: var(--red);
+  stroke-width: 9;
+  stroke-dasharray: 47.752 477.522;
+  stroke-dashoffset: -270.596;
+  opacity: 0.55;
+}
+.gauge__value {
+  stroke: var(--amber);
+  stroke-width: 9;
+  stroke-linecap: round;
+  stroke-dasharray: 318.348 477.522;
+  stroke-dashoffset: 318.348;              /* starts empty; JS fills it */
+  filter: drop-shadow(0 0 7px var(--amber-glow));
+  transition: stroke-dashoffset var(--dur-slow) var(--ease);
+}
+
+.gauge__needle {
+  transform-box: view-box;
+  transform-origin: 100px 100px;
+  transform: rotate(var(--angle, 240deg));   /* 240deg = zero on the dial */
+  transition: transform var(--dur-slow) var(--ease);
+}
+.gauge__needle line {
+  stroke: var(--red);
+  stroke-width: 3.5;
+  stroke-linecap: round;
+}
+.gauge__hub { fill: var(--chrome-hi); stroke: #0A0D11; stroke-width: 2; }
+
+/* The readout sits in the middle of the dial, the label in the gap below. */
+.gauge__readout {
+  /* Sits low on the dial, between the two open ends of the arc. The needle
+     sweeps between 8 and 4 o'clock and never points straight down, so this
+     spot is always clear of it. */
+  position: absolute;
+  left: 50%;
+  top: 68%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: clamp(1.45rem, 1rem + 2vw, 2.1rem);
+  color: var(--bone);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+.gauge__label {
+  display: block;
+  margin-top: -7%;    /* tucks the label up under the foot of the dial */
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--bone-dim);
+}
+
+/* ==========================================================================
+   3. PANELS & CARDS
+   ========================================================================== */
+.panel {
+  background: var(--lacquer-raised);
+  background-image: var(--brushed);
+  border: 1px solid var(--chrome-edge);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-panel);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  background: var(--lacquer-raised);
+  background-image: var(--brushed);
+  border: 1px solid var(--chrome-edge);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-panel);
+  overflow: hidden;
+  transition: transform var(--dur) var(--ease),
+              box-shadow var(--dur) var(--ease),
+              border-color var(--dur) var(--ease);
+}
+.card:hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--amber) 32%, transparent);
+  box-shadow: var(--shadow-lift);
+}
+
+.card__media {
+  position: relative;
+  background: var(--lacquer-sunk);
+  border-bottom: 1px solid var(--chrome-edge);
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+}
+.card__media img,
+.card__media video { width: 100%; height: 100%; object-fit: cover; }
+
+.card__body { padding: var(--space-m); display: flex; flex-direction: column; flex: 1; }
+.card__title { margin-bottom: var(--space-xs); }
+.card__body > :last-child { margin-bottom: 0; }
+.card__body p { max-width: none; }
+
+/* The amber label plate — a stamped tag, like a gauge face marking. */
+.plate {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--amber);
+  background: color-mix(in srgb, var(--amber) 11%, transparent);
+  border: 1px solid color-mix(in srgb, var(--amber) 34%, transparent);
+  border-radius: 3px;
+  padding: 0.28em 0.65em;
+  line-height: 1.5;
+}
+
+/* "The problem" line — the thing every project card leads with. */
+.problem {
+  border-left: 2px solid var(--red);
+  padding-left: var(--space-s);
+  margin-bottom: var(--space-s);
+}
+.problem__label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--red-lift);
+  margin-bottom: 0.2em;
+}
+.problem p { margin: 0; color: var(--bone); }
+
+/* Small mono stat readouts — used on the professional/AI card. */
+.readouts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-s) var(--space-l);
+  list-style: none;
+  padding: 0;
+  margin: 0 0 var(--space-s);
+}
+.readout__value {
+  display: block;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: var(--step-2);
+  color: var(--amber);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+.readout__label {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--bone-dim);
+}
+
+/* ==========================================================================
+   4. BUTTONS
+   ========================================================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55em;
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 0.75em 1.25em;
+  border-radius: var(--radius);
+  border: 1px solid var(--chrome-edge);
+  background: var(--bezel);
+  color: var(--bone);
+  cursor: pointer;
+  transition: border-color var(--dur-fast) var(--ease),
+              color var(--dur-fast) var(--ease),
+              transform var(--dur-fast) var(--ease);
+}
+.btn:hover {
+  color: var(--amber);
+  border-color: color-mix(in srgb, var(--amber) 50%, transparent);
+  transform: translateY(-1px);
+}
+.btn:active { transform: translateY(0); }
+.btn--primary {
+  background: var(--amber);
+  border-color: var(--amber);
+  color: var(--lacquer);
+  font-weight: 600;
+}
+.btn--primary:hover { background: var(--bone); border-color: var(--bone); color: var(--lacquer); }
+.btn[disabled] { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+.link-arrow {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  display: inline-flex;
+  gap: 0.5em;
+  margin-top: auto;
+  padding-top: var(--space-s);
+}
+.link-arrow span { transition: transform var(--dur) var(--ease); }
+.link-arrow:hover span { transform: translateX(4px); }
+
+/* ==========================================================================
+   5. THE TAPE DECK (music player)
+   ========================================================================== */
+.deck {
+  background: var(--bezel);
+  background-image: var(--brushed), var(--bezel);
+  border: 1px solid var(--chrome-edge);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lift);
+  padding: var(--space-m);
+}
+
+/* Amber-lit LCD, sunk into the faceplate. */
+.deck__lcd {
+  background: var(--lacquer-sunk);
+  border: 1px solid rgba(0,0,0,0.7);
+  box-shadow: inset 0 2px 10px rgba(0,0,0,0.85),
+              0 1px 0 var(--chrome-edge);
+  border-radius: var(--radius);
+  padding: var(--space-s) var(--space-m);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2xs) var(--space-m);
+  align-items: baseline;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+}
+.deck__now {
+  color: var(--amber);
+  text-shadow: 0 0 10px var(--amber-glow);
+  font-size: var(--step-0);
+  letter-spacing: 0.04em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+.deck__time {
+  color: var(--amber-text);
+  font-size: var(--step--1);
+  font-variant-numeric: tabular-nums;
+  flex: none;
+}
+
+.deck__controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-s);
+  margin-top: var(--space-m);
+  flex-wrap: wrap;
+}
+
+.deck__btn {
+  --size: 44px;
+  width: var(--size);
+  height: var(--size);
+  flex: none;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid var(--chrome-edge);
+  background: linear-gradient(160deg, #454C56, #22282F 55%, #171C22);
+  color: var(--bone);
+  cursor: pointer;
+  transition: color var(--dur-fast) var(--ease),
+              border-color var(--dur-fast) var(--ease);
+}
+.deck__btn:hover { color: var(--amber); border-color: var(--amber-dim); }
+.deck__btn:active { background: linear-gradient(160deg, #22282F, #454C56); }
+.deck__btn[disabled] { opacity: 0.35; cursor: not-allowed; }
+.deck__btn svg { width: 17px; height: 17px; fill: currentColor; }
+.deck__btn--play { --size: 56px; }
+.deck__btn--play svg { width: 21px; height: 21px; grid-area: 1 / 1; }
+
+/* The play/pause swap is done with a class, NOT the `hidden` attribute:
+   the UA rule for [hidden] is namespaced to HTML, so it has no effect on an
+   <svg> element and both icons would render on top of each other. */
+.deck__btn--play [data-icon-pause] { display: none; }
+.deck__btn--play.is-playing [data-icon-play] { display: none; }
+.deck__btn--play.is-playing [data-icon-pause] { display: block; }
+
+.deck__vol-group { display: flex; align-items: center; gap: var(--space-2xs); flex: 0 1 150px; }
+.deck__vol-group svg { width: 16px; height: 16px; fill: var(--bone-dim); flex: none; }
+
+/* Real range inputs — keyboard scrubbing comes free. */
+.deck__scrub { flex: 1 1 180px; min-width: 120px; }
+.deck__vol   { flex: 1; min-width: 0; }
+
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  height: 24px;
+  cursor: pointer;
+  margin: 0;
+}
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 2px;
+  background: linear-gradient(to right,
+    var(--amber) 0 var(--fill, 0%), #2A3038 var(--fill, 0%) 100%);
+}
+input[type="range"]::-moz-range-track {
+  height: 4px; border-radius: 2px; background: #2A3038;
+}
+input[type="range"]::-moz-range-progress {
+  height: 4px; border-radius: 2px; background: var(--amber);
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px; height: 14px;
+  margin-top: -5px;
+  border-radius: 50%;
+  background: var(--chrome-hi);
+  border: 1px solid #0A0D11;
+  box-shadow: 0 0 6px rgba(0,0,0,0.8);
+}
+input[type="range"]::-moz-range-thumb {
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: var(--chrome-hi);
+  border: 1px solid #0A0D11;
+}
+
+/* Playlist. Each item is a real <a href> to the mp3 until JS upgrades it. */
+.deck__list {
+  list-style: none;
+  margin: var(--space-m) 0 0;
+  padding: 0;
+  border-top: 1px solid var(--chrome-edge);
+}
+.deck__track {
+  display: flex;
+  align-items: center;
+  gap: var(--space-s);
+  width: 100%;
+  padding: 0.85em var(--space-2xs);
+  border-bottom: 1px solid rgba(201,205,210,0.09);
+  color: var(--bone);
+  text-decoration: none;
+  font-size: var(--step--1);
+  transition: color var(--dur-fast) var(--ease),
+              background var(--dur-fast) var(--ease);
+}
+.deck__track:hover { color: var(--amber); background: rgba(240,182,74,0.05); }
+.deck__track-num {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  color: var(--bone-dim);
+  flex: none;
+  width: 2ch;
+}
+.deck__track-title { flex: 1; min-width: 0; }
+.deck__track-time {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  color: var(--bone-dim);
+  flex: none;
+}
+.deck__track[aria-current="true"] { color: var(--amber); }
+.deck__track[aria-current="true"] .deck__track-num { color: var(--amber); }
+
+.deck__empty {
+  padding: var(--space-m) var(--space-2xs) var(--space-2xs);
+  color: var(--bone-dim);
+  font-size: var(--step--1);
+}
+
+/* ==========================================================================
+   6. EMBED FACADE (BandLab)
+   A static card that swaps in the real iframe only when clicked — keeps the
+   page fast and runs no third-party code for people who never press play.
+   ========================================================================== */
+.facade {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 1px solid var(--chrome-edge);
+  border-radius: var(--radius-lg);
+  background: var(--lacquer-sunk);
+  overflow: hidden;
+  cursor: pointer;
+  color: var(--bone);
+  text-align: left;
+  aspect-ratio: 16 / 10;
+}
+.facade img { width: 100%; height: 100%; object-fit: cover; opacity: 0.72; transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease); }
+.facade:hover img { opacity: 0.92; transform: scale(1.02); }
+.facade__overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: var(--space-2xs);
+  padding: var(--space-m);
+  background: linear-gradient(to top, rgba(10,13,17,0.92) 12%, rgba(10,13,17,0.15) 70%);
+}
+.facade__play {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 58px; height: 58px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  background: var(--amber);
+  color: var(--lacquer);
+  box-shadow: 0 0 26px var(--amber-glow);
+  transition: transform var(--dur) var(--ease);
+}
+.facade:hover .facade__play { transform: translate(-50%, -50%) scale(1.08); }
+.facade__play svg { width: 22px; height: 22px; fill: currentColor; margin-left: 3px; }
+.facade__title { font-family: var(--font-display); font-variation-settings: 'wdth' 85; font-weight: 700; font-size: var(--step-1); }
+.facade__meta  { font-family: var(--font-mono); font-size: var(--step--2); letter-spacing: 0.12em; text-transform: uppercase; color: var(--amber); }
+
+.embed-frame {
+  border: 1px solid var(--chrome-edge);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+  background: var(--lacquer-sunk);
+}
+.embed-frame iframe { width: 100%; height: 100%; border: 0; display: block; }
+
+/* ==========================================================================
+   7. LISTENING LIST ("What I'm Listening to Lately")
+   ========================================================================== */
+.spins { list-style: none; margin: 0; padding: 0; display: grid; gap: 1px; background: var(--chrome-edge); border: 1px solid var(--chrome-edge); border-radius: var(--radius-lg); overflow: hidden; }
+.spin {
+  display: flex;
+  align-items: center;
+  gap: var(--space-s);
+  padding: var(--space-xs) var(--space-s);
+  background: var(--lacquer-raised);
+  transition: background var(--dur-fast) var(--ease);
+}
+.spin:hover { background: #1B212A; }
+.spin__num {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  color: var(--amber-text);
+  width: 2ch;
+  flex: none;
+}
+.spin__art { width: 48px; height: 48px; border-radius: 3px; flex: none; object-fit: cover; background: var(--lacquer-sunk); }
+.spin__text { min-width: 0; }
+.spin__track { margin: 0; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.spin__artist { margin: 0; font-size: var(--step--1); color: var(--bone-dim); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* ==========================================================================
+   8. FORM
+   ========================================================================== */
+.field { margin-bottom: var(--space-m); }
+.field__label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: var(--space-2xs);
+}
+.field__hint { display: block; font-size: var(--step--1); color: var(--bone-dim); margin-top: var(--space-3xs); }
+
+.field input,
+.field textarea {
+  width: 100%;
+  font-family: inherit;
+  font-size: var(--step-0);
+  color: var(--bone);
+  background: var(--lacquer-sunk);
+  border: 1px solid var(--chrome-edge);
+  border-radius: var(--radius);
+  padding: 0.8em 1em;
+  box-shadow: inset 0 2px 8px rgba(0,0,0,0.5);
+  transition: border-color var(--dur-fast) var(--ease),
+              box-shadow var(--dur-fast) var(--ease);
+}
+.field input:focus,
+.field textarea:focus {
+  border-color: var(--amber);
+  box-shadow: inset 0 2px 8px rgba(0,0,0,0.5), 0 0 0 3px var(--amber-glow);
+}
+.field textarea { resize: vertical; min-height: 9em; line-height: var(--leading-body); }
+.field input::placeholder,
+.field textarea::placeholder { color: var(--chrome-lo); }
+
+/* Honeypot — hidden from people, irresistible to bots. */
+.hp { position: absolute; left: -9999px; opacity: 0; height: 0; overflow: hidden; }

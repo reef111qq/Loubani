@@ -1,0 +1,11 @@
+{
+  "name": "Reef Loubani",
+  "short_name": "Reef Loubani",
+  "start_url": "/index.html",
+  "display": "browser",
+  "background_color": "#0E1116",
+  "theme_color": "#0E1116",
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}

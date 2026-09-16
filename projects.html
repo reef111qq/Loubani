@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Projects — Reef Loubani</title>
+<meta name="description" content="Software Reef Loubani has built: a Spotify-connected desktop music manager, a personal health and nutrition dashboard, original music production, and AI agent work at scale.">
+<link rel="canonical" href="https://reefloubani.com/projects.html">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Projects — Reef Loubani">
+<meta property="og:description" content="Desktop software, personal tools, music, and AI agent work.">
+<meta property="og:url" content="https://reefloubani.com/projects.html">
+<meta property="og:image" content="https://reefloubani.com/media/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="site.webmanifest">
+<meta name="theme-color" content="#0E1116">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Inter:wght@400..600&family=Roboto+Mono:wght@400..600&display=swap">
+
+<link rel="stylesheet" href="styles/tokens.css">
+<link rel="stylesheet" href="styles/base.css">
+<link rel="stylesheet" href="styles/components.css">
+<link rel="stylesheet" href="styles/pages.css">
+<script type="module" src="scripts/main.js"></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="cluster">
+  <div class="cluster__inner">
+    <a class="cluster__mark" href="index.html">RL</a>
+    <nav class="cluster__tabs" aria-label="Primary">
+      <ul class="cluster__list">
+        <li><a class="cluster__link" href="index.html">Home</a></li>
+        <li><a class="cluster__link" href="projects.html" aria-current="page">Projects</a></li>
+        <li><a class="cluster__link" href="music.html">Music</a></li>
+        <li><a class="cluster__link" href="about.html">About</a></li>
+        <li><a class="cluster__link" href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="wrap section" aria-labelledby="projects-heading">
+    <div class="section-head">
+      <span class="section-head__eyebrow">Built</span>
+      <h1 id="projects-heading">Projects</h1>
+      <p class="section-head__lede">
+        Most of these started because something annoyed me and no one had fixed it properly yet.
+      </p>
+    </div>
+
+    <div class="grid grid--2">
+
+      <!-- ===== 1. Electron / Spotify desktop app ========================= -->
+      <article class="card reveal">
+        <div class="card__media">
+          <!-- REPLACE: a screenshot, or a short demo clip. For a clip use:
+               <video src="media/shots/name.mp4" poster="media/shots/name.jpg"
+                      muted loop playsinline preload="none"></video>
+               Use .mp4, never .gif — roughly a tenth of the file size. -->
+          <img src="media/placeholder-shot.svg" alt="Screenshot of the desktop music manager, showing a local library alongside Spotify playlists" width="800" height="500" decoding="async">
+        </div>
+        <div class="card__body">
+          <h2 class="card__title"><span class="plate">Desktop app</span></h2>
+
+          <div class="problem">
+            <span class="problem__label">The problem</span>
+            <p>Streaming services own your playlists, not you. Your local files live somewhere else entirely, and nothing talks to anything.</p>
+          </div>
+
+          <!-- REPLACE: your description, a few sentences, plain language. -->
+          <p>A desktop app that connects to Spotify and sits on top of your own music folder, so playlists and local files finally live in one place. Built with Electron, so it runs natively on a desktop instead of in a browser tab.</p>
+
+          <a class="link-arrow" href="project-music-manager.html">Read more <span aria-hidden="true">&rarr;</span></a>
+        </div>
+      </article>
+
+      <!-- ===== 2. Health dashboard ====================================== -->
+      <article class="card reveal">
+        <div class="card__media">
+          <img src="media/placeholder-shot.svg" alt="Screenshot of the health dashboard, showing daily meals, supplements and nutrition totals" width="800" height="500" loading="lazy" decoding="async">
+        </div>
+        <div class="card__body">
+          <h2 class="card__title"><span class="plate">Personal tool</span></h2>
+
+          <div class="problem">
+            <span class="problem__label">The problem</span>
+            <p>Every nutrition app wants a subscription, a social feed, and a guess at what you ate. I wanted numbers I actually control.</p>
+          </div>
+
+          <p>A dashboard that tracks meals, supplements and nutrition day to day — built around how I actually eat rather than a generic food diary. It's the project I use the most, which is the only real test of a personal tool.</p>
+
+          <a class="link-arrow" href="project-health-dashboard.html">Read more <span aria-hidden="true">&rarr;</span></a>
+        </div>
+      </article>
+
+      <!-- ===== 3. Music production ====================================== -->
+      <article class="card reveal">
+        <div class="card__media">
+          <img src="media/placeholder-shot.svg" alt="A beat in progress in a digital audio workstation" width="800" height="500" loading="lazy" decoding="async">
+        </div>
+        <div class="card__body">
+          <h2 class="card__title"><span class="plate">Music</span></h2>
+
+          <div class="problem">
+            <span class="problem__label">The problem</span>
+            <p>Not every problem is a technical one. Some nights the only thing worth solving is why a drum pattern isn't landing.</p>
+          </div>
+
+          <p>Beats and instrumentals I produce myself. It's the part of my week that has nothing to do with shipping anything, which is exactly the point.</p>
+
+          <a class="link-arrow" href="music.html">Listen <span aria-hidden="true">&rarr;</span></a>
+        </div>
+      </article>
+
+      <!-- ===== 4. Professional / AI work ================================
+           Before this goes live: only publish numbers you are cleared to
+           share publicly. Internal co-op metrics often are not.
+           ================================================================= -->
+      <article class="card reveal">
+        <div class="card__media">
+          <img src="media/placeholder-shot.svg" alt="An agent workflow diagram from professional AI work" width="800" height="500" loading="lazy" decoding="async">
+        </div>
+        <div class="card__body">
+          <h2 class="card__title"><span class="plate">Professional</span></h2>
+
+          <div class="problem">
+            <span class="problem__label">The problem</span>
+            <p>Large organisations have enormous amounts of repetitive work that nobody enjoys and no one has time to automate.</p>
+          </div>
+
+          <!-- REPLACE: your real, publicly shareable figures. -->
+          <ul class="readouts">
+            <li>
+              <span class="readout__value">18</span>
+              <span class="readout__label">Agents built</span>
+            </li>
+            <li>
+              <span class="readout__value">1,200+</span>
+              <span class="readout__label">Monthly users</span>
+            </li>
+            <li>
+              <span class="readout__value">40%</span>
+              <span class="readout__label">Time saved</span>
+            </li>
+          </ul>
+
+          <p>AI agent work during my co-op at RBC — building tools that got picked up and used by real teams, not just demoed once and shelved.</p>
+
+          <a class="link-arrow" href="contact.html">Ask me about it <span aria-hidden="true">&rarr;</span></a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot__inner">
+    <p class="mono">&copy; Reef Loubani</p>
+    <p><a href="contact.html">reefloubani@gmail.com</a></p>
+  </div>
+</footer>
+
+</body>
+</html>
