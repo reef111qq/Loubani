@@ -117,7 +117,9 @@ main { position: relative; z-index: 1; view-transition-name: page; }
    ========================================================================== */
 .grid { display: grid; gap: var(--space-m); }
 .grid--3 { grid-template-columns: repeat(auto-fit, minmax(255px, 1fr)); }
-.grid--2 { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+/* 420px min means a third column can't fit inside --page-max, so this really
+   is two-up on desktop — screenshots need the width to stay readable. */
+.grid--2 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); }
 
 /* ==========================================================================
    ABOUT
