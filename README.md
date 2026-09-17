@@ -55,17 +55,22 @@ page marks its own.
 
 ## Adding a track
 
-1. Export to mp3, 128–192 kbps. Keep it under about 4 MB.
-2. Drop it in `/audio`.
-3. Copy the commented template `<li>` in `music.html` and fill in the filename,
-   title and duration.
+1. Export to mp3 or m4a, 128–192 kbps. Keep it under about 4 MB.
+2. Drop it in `/audio`, named in lowercase with dashes instead of spaces.
+3. Add it in **two** places — the deck list in `music.html` and the dock list in
+   `index.html`. Copy an existing `<li>` in each and change the filename, title
+   and duration.
 
-Keep this to about five tracks. Audio is by far the largest thing in the repo
-and it adds up fast.
+`data-duration` is only what shows before the file loads; the player replaces it
+with the real figure from the audio itself. To get it: `afinfo audio/yourfile.m4a`.
 
-**The three `demo-*.wav` files in `/audio` are placeholders** — short generated
-tones so the player is testable before you have real music in there. Delete them
-once you add your own.
+Audio is by far the largest thing in the repo — the nine tracks are about 27 MB
+of the total. Worth pruning before adding many more.
+
+**A note on m4a:** the tracks are AAC in an m4a container, which every current
+browser plays. The one gap is Firefox on Linux without system codecs installed.
+If that ever matters, convert to mp3 (`brew install ffmpeg`, then
+`ffmpeg -i in.m4a -b:a 192k out.mp3`) and update the two lists.
 
 ## Adding a BandLab embed
 
