@@ -1,15 +1,24 @@
 /* ==========================================================================
-   player.js — the tape deck.
+   player.js — the audio engine behind both players on the site.
 
    Progressive enhancement: the playlist in the HTML is a list of ordinary
    <a href="audio/track.mp3"> links. With JS off they are working download
    links. This file upgrades them into an in-page playlist.
+
+   `init()` wires up the tape deck on the music page. `createPlayer(root)` is
+   exported separately so the dock on the home page can reuse all of the
+   transport, scrubbing and playlist logic with completely different markup.
+   Every control is looked up optionally, so a player only needs the pieces
+   it actually has — the dock has no prev/next or volume, for instance.
    ========================================================================== */
 
 export function init() {
   const root = document.querySelector('[data-player]');
   if (!root) return;
+  createPlayer(root);
+}
 
+export function createPlayer(root) {
   const audio     = root.querySelector('[data-audio]');
   const tracks    = Array.from(root.querySelectorAll('[data-track]'));
   const nowEl     = root.querySelector('[data-now]');

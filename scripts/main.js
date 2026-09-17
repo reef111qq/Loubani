@@ -19,3 +19,4 @@ load(present('[data-player]'), './player.js');
 load(present('[data-facade]'), './embeds.js');
 load(present('.reveal'),       './reveal.js');
 load(present('.clipping'),     './scatter.js');
+load(present('[data-dock]'),   './dock.js');

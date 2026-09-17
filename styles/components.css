@@ -455,14 +455,17 @@
 .deck__btn[disabled] { opacity: 0.35; cursor: not-allowed; }
 .deck__btn svg { width: 17px; height: 17px; fill: currentColor; }
 .deck__btn--play { --size: 58px; background: var(--vermilion); border-color: var(--vermilion); color: var(--ink); }
-.deck__btn--play svg { width: 21px; height: 21px; grid-area: 1 / 1; }
+.deck__btn--play svg { width: 21px; height: 21px; }
 
 /* The play/pause swap is done with a class, NOT the `hidden` attribute:
    the UA rule for [hidden] is namespaced to HTML, so it has no effect on an
-   <svg> element and both icons would render on top of each other. */
-.deck__btn--play [data-icon-pause] { display: none; }
-.deck__btn--play.is-playing [data-icon-play] { display: none; }
-.deck__btn--play.is-playing [data-icon-pause] { display: block; }
+   <svg> element and both icons would render on top of each other.
+   Scoped to [data-toggle] so the deck and the dock share one rule. */
+[data-toggle] { display: grid; }
+[data-toggle] svg { grid-area: 1 / 1; }
+[data-toggle] [data-icon-pause] { display: none; }
+[data-toggle].is-playing [data-icon-play] { display: none; }
+[data-toggle].is-playing [data-icon-pause] { display: block; }
 
 .deck__vol-group { display: flex; align-items: center; gap: var(--space-2xs); flex: 0 1 150px; }
 .deck__vol-group svg { width: 16px; height: 16px; fill: var(--paper-dim); flex: none; }
@@ -603,17 +606,23 @@ input[type="range"]::-moz-range-thumb {
   border: 2px solid var(--paper);
   box-shadow: var(--shadow-print);
 }
-.spin {
+.spin { border-bottom: 1px solid rgba(239,230,208,0.14); }
+.spin:last-child { border-bottom: 0; }
+
+.spin__link {
   display: flex;
   align-items: center;
   gap: var(--space-s);
   padding: var(--space-xs) var(--space-s);
   background: var(--ink-2);
-  border-bottom: 1px solid rgba(239,230,208,0.14);
+  color: var(--paper);
+  text-decoration: none;
   transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
 }
-.spin:last-child { border-bottom: 0; }
-.spin:hover { background: var(--vermilion); color: var(--ink); }
+.spin__link:hover { background: var(--vermilion); color: var(--ink); }
+
+.spin__out { margin-left: auto; flex: none; font-size: var(--step-0); opacity: 0.6; }
+.spin__link:hover .spin__out { opacity: 1; }
 .spin__num {
   font-family: var(--font-mono);
   font-size: var(--step--2);
@@ -621,12 +630,12 @@ input[type="range"]::-moz-range-thumb {
   width: 2ch;
   flex: none;
 }
-.spin:hover .spin__num { color: var(--ink); }
+.spin__link:hover .spin__num { color: var(--ink); }
 .spin__art { width: 48px; height: 48px; flex: none; object-fit: cover; background: var(--ink-3); border: 1px solid var(--paper); }
-.spin__text { min-width: 0; }
-.spin__track { margin: 0; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.spin__artist { margin: 0; font-size: var(--step--1); color: var(--paper-dim); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.spin:hover .spin__artist { color: var(--ink); }
+.spin__text { min-width: 0; display: flex; flex-direction: column; }
+.spin__track { font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.spin__artist { font-size: var(--step--1); color: var(--paper-dim); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.spin__link:hover .spin__artist { color: var(--ink); }
 
 /* ==========================================================================
    9. FORM
@@ -661,3 +670,126 @@ input[type="range"]::-moz-range-thumb {
 .field textarea::placeholder { color: var(--paper-dim); }
 
 .hp { position: absolute; left: -9999px; opacity: 0; height: 0; overflow: hidden; }
+
+
+/* ==========================================================================
+   10. DOCK — the persistent player, bottom-left of the home page.
+   Audio behaviour is shared with the tape deck via player.js; only the
+   open/closed panel is the dock's own.
+   ========================================================================== */
+.dock {
+  position: fixed;
+  left: var(--gutter);
+  bottom: var(--gutter);
+  z-index: 70;
+  width: min(330px, calc(100vw - (var(--gutter) * 2)));
+  background: var(--ink-2);
+  border: 2px solid var(--paper);
+  box-shadow: var(--shadow-lift);
+}
+
+.dock__bar {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+}
+
+.dock__play {
+  --size: 52px;
+  width: var(--size);
+  height: var(--size);
+  flex: none;
+  place-items: center;
+  border: 0;
+  border-right: 2px solid var(--paper);
+  background: var(--vermilion);
+  color: var(--ink);
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease);
+}
+.dock__play:hover { background: var(--gold); }
+.dock__play[disabled] { opacity: 0.4; cursor: not-allowed; }
+.dock__play svg { width: 18px; height: 18px; fill: currentColor; }
+
+.dock__meta {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 var(--space-xs);
+  gap: 2px;
+}
+.dock__label {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.dock__now {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  color: var(--paper);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dock__expand {
+  width: 38px;
+  flex: none;
+  border: 0;
+  border-left: 2px solid var(--paper);
+  background: transparent;
+  color: var(--paper);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+}
+.dock__expand:hover { background: var(--gold); color: var(--ink); }
+.dock__expand svg { width: 14px; height: 14px; fill: currentColor; transition: transform var(--dur) var(--ease); }
+.dock.is-open .dock__expand svg { transform: rotate(180deg); }
+
+.dock__panel { border-top: 2px solid var(--paper); padding: var(--space-xs); }
+
+.dock__scrubrow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: var(--paper-dim);
+}
+.dock__scrubrow input[type="range"] { flex: 1; min-width: 0; }
+
+.dock__list {
+  list-style: none;
+  margin: var(--space-2xs) 0 0;
+  padding: 0;
+  max-height: 168px;
+  overflow-y: auto;
+}
+.dock__track {
+  display: flex;
+  gap: var(--space-2xs);
+  align-items: baseline;
+  padding: 0.5em 0.35em;
+  color: var(--paper);
+  text-decoration: none;
+  font-size: var(--step--2);
+  border-bottom: 1px solid rgba(239,230,208,0.12);
+}
+.dock__track:hover { background: var(--gold); color: var(--ink); }
+.dock__track[aria-current="true"] { color: var(--vermilion); }
+.dock__track-title { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.dock__track-time { font-family: var(--font-mono); color: var(--paper-dim); flex: none; }
+.dock__track:hover .dock__track-time { color: var(--ink); }
+
+.dock__empty { margin: var(--space-2xs) 0 0; font-size: var(--step--2); color: var(--paper-dim); }
+
+@media (max-width: 560px) {
+  .dock { width: calc(100vw - (var(--gutter) * 2)); }
+  .dock__list { max-height: 132px; }
+}

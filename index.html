@@ -420,6 +420,56 @@
 
 </main>
 
+<!-- ===== DOCK ============================================================
+     The persistent player, bottom-left. Plays YOUR OWN tracks from /audio.
+
+     The list below is ordinary links to mp3 files, so with JavaScript off
+     it degrades to a working list of downloads. JS upgrades it in place.
+
+     TO ADD A TRACK: drop the file into /audio and copy one <li>. Keep the
+     list here and the one on music.html in step with each other.
+     ====================================================================== -->
+<aside class="dock" data-dock aria-label="Music player">
+  <div class="dock__bar">
+    <button type="button" class="dock__play" data-toggle aria-label="Play">
+      <svg viewBox="0 0 24 24" aria-hidden="true" data-icon-play><path d="M7 5l12 7-12 7z"/></svg>
+      <svg viewBox="0 0 24 24" aria-hidden="true" data-icon-pause><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/></svg>
+    </button>
+
+    <span class="dock__meta">
+      <span class="dock__label">My tracks</span>
+      <span class="dock__now" data-now aria-live="polite">&mdash;</span>
+    </span>
+
+    <button type="button" class="dock__expand" data-dock-toggle
+            aria-expanded="false" aria-controls="dock-panel" aria-label="Expand player">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8l6 8H6z"/></svg>
+    </button>
+  </div>
+
+  <div class="dock__panel" id="dock-panel" data-dock-panel hidden>
+    <div class="dock__scrubrow">
+      <span data-elapsed>0:00</span>
+      <input type="range" data-scrub min="0" max="100" step="0.1" value="0" aria-label="Seek within track">
+      <span data-duration>0:00</span>
+    </div>
+
+    <ol class="dock__list">
+      <!-- REPLACE: these three are placeholder tones. Swap in your own mp3s. -->
+      <li><a class="dock__track" href="audio/demo-one.wav" data-track data-title="Placeholder One" data-duration="0:06">
+        <span class="dock__track-title">Placeholder One</span><span class="dock__track-time">0:06</span></a></li>
+      <li><a class="dock__track" href="audio/demo-two.wav" data-track data-title="Placeholder Two" data-duration="0:06">
+        <span class="dock__track-title">Placeholder Two</span><span class="dock__track-time">0:06</span></a></li>
+      <li><a class="dock__track" href="audio/demo-three.wav" data-track data-title="Placeholder Three" data-duration="0:06">
+        <span class="dock__track-title">Placeholder Three</span><span class="dock__track-time">0:06</span></a></li>
+    </ol>
+
+    <p class="dock__empty" data-empty hidden>No tracks yet. Drop mp3s into /audio.</p>
+  </div>
+
+  <audio data-audio preload="none"></audio>
+</aside>
+
 <footer class="foot">
   <div class="wrap foot__inner">
     <p class="mono">&copy; Reef Loubani</p>
