@@ -36,11 +36,13 @@ function setup(el, reduceMotion) {
   const max = Number(el.dataset.max) || Math.max(value, 1);
   const suffix = el.dataset.suffix || '';
   const label = el.dataset.label || '';
+  // Big numbers read better as "7.4M" than "7,400,000" inside a dial.
+  const compact = el.hasAttribute('data-compact');
   const percent = Math.min(1, Math.max(0, value / max));
 
   // Correct the DOM first, then animate. Important for the age gauge, whose
   // hardcoded HTML value is only a fallback.
-  readout.textContent = formatNumber(value) + suffix;
+  readout.textContent = formatNumber(value, compact) + suffix;
   if (dial) dial.setAttribute('aria-label', `${label}: ${value}${suffix}`);
 
   const paint = () => {
@@ -59,22 +61,22 @@ function setup(el, reduceMotion) {
       if (!entry.isIntersecting) return;
       self.disconnect();
       paint();
-      countUp(readout, value, suffix);
+      countUp(readout, value, suffix, compact);
     });
   }, { threshold: 0.35 });
 
   observer.observe(el);
 }
 
-function countUp(node, target, suffix) {
+function countUp(node, target, suffix, compact) {
   const start = performance.now();
   const tick = (now) => {
     const t = Math.min(1, (now - start) / COUNT_MS);
     const eased = 1 - Math.pow(1 - t, 3);            // matches the needle's ease-out
-    node.textContent = formatNumber(Math.round(target * eased)) + suffix;
+    node.textContent = formatNumber(Math.round(target * eased), compact) + suffix;
     if (t < 1) requestAnimationFrame(tick);
   };
-  node.textContent = '0' + suffix;
+  node.textContent = formatNumber(0, compact) + suffix;
   requestAnimationFrame(tick);
 }
 
@@ -88,6 +90,12 @@ function yearsSince(isoDate) {
   return years;
 }
 
-function formatNumber(n) {
+function formatNumber(n, compact) {
+  if (compact) {
+    return n.toLocaleString('en-US', {
+      notation: 'compact',
+      maximumFractionDigits: 1,
+    });
+  }
   return n.toLocaleString('en-US');
 }

@@ -35,6 +35,19 @@
   gap: var(--space-m);
 }
 
+/* Sub-pages get a plain "back" bar rather than the anchor strip. */
+.cluster__back {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-decoration: none;
+  display: inline-flex;
+  gap: 0.5em;
+  align-items: center;
+}
+
 .cluster__mark {
   font-family: var(--font-display);
   font-variation-settings: 'wdth' 78;
@@ -203,6 +216,14 @@
   color: var(--bone);
   font-variant-numeric: tabular-nums;
   letter-spacing: -0.02em;
+}
+.gauge__note {
+  display: block;
+  margin-top: 0.35em;
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  color: var(--amber-text);
+  letter-spacing: 0.06em;
 }
 .gauge__label {
   display: block;

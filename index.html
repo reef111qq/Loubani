@@ -6,13 +6,13 @@
 
 <!-- REPLACE: tagline in the title, and the description below. Keep the name first. -->
 <title>Reef Loubani — Builder, AI Engineer, Music Producer</title>
-<meta name="description" content="Reef Loubani builds AI agents, desktop software and personal tools — and makes beats. Projects, music, and what he's into, in one place.">
-<link rel="canonical" href="https://reefloubani.com/index.html">
+<meta name="description" content="Reef Loubani builds software, lifts, makes beats, cuts hair and reads history. Movies, reads, music, health, barbering, extended reality and video — all in one place.">
+<link rel="canonical" href="https://reefloubani.com/">
 
 <meta property="og:type" content="profile">
 <meta property="og:title" content="Reef Loubani">
-<meta property="og:description" content="Builder, AI engineer, music producer. Projects, music, and what he's into.">
-<meta property="og:url" content="https://reefloubani.com/index.html">
+<meta property="og:description" content="Builder, AI engineer, music producer. Movies, reads, music, health, barbering, XR and video.">
+<meta property="og:url" content="https://reefloubani.com/">
 <meta property="og:image" content="https://reefloubani.com/media/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 
@@ -40,7 +40,7 @@
   "url": "https://reefloubani.com/",
   "jobTitle": "Software Engineer",
   "email": "mailto:reefloubani@gmail.com",
-  "knowsAbout": ["Artificial Intelligence", "AI Agents", "Software Engineering", "Music Production"],
+  "knowsAbout": ["Software Engineering", "Artificial Intelligence", "Music Production", "Extended Reality", "Strength Training", "Film", "History"],
   "sameAs": [
     "https://github.com/reef111qq",
     "https://www.linkedin.com/in/reef-loubani-is-pretty-cool/",
@@ -52,21 +52,13 @@
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
 
-<!-- ==========================================================================
-     NAV — this block is duplicated in all five pages. If you edit it, edit it
-     in index.html, projects.html, music.html, about.html and contact.html.
-     The only difference between copies is which link carries aria-current.
-     ========================================================================== -->
 <header class="cluster">
   <div class="cluster__inner">
-    <a class="cluster__mark" href="index.html">RL</a>
+    <a class="cluster__mark" href="#main">RL</a>
     <nav class="cluster__tabs" aria-label="Primary">
       <ul class="cluster__list">
-        <li><a class="cluster__link" href="index.html" aria-current="page">Home</a></li>
-        <li><a class="cluster__link" href="projects.html">Projects</a></li>
-        <li><a class="cluster__link" href="music.html">Music</a></li>
-        <li><a class="cluster__link" href="about.html">About</a></li>
-        <li><a class="cluster__link" href="contact.html">Contact</a></li>
+        <li><a class="cluster__link" href="#interests">Interests</a></li>
+        <li><a class="cluster__link" href="#contact">Contact</a></li>
       </ul>
     </nav>
   </div>
@@ -88,7 +80,7 @@
       <ul class="hero__links">
         <li><a class="btn" href="https://github.com/reef111qq">GitHub</a></li>
         <li><a class="btn" href="https://www.linkedin.com/in/reef-loubani-is-pretty-cool/">LinkedIn</a></li>
-        <li><a class="btn btn--primary" href="contact.html">Get in touch</a></li>
+        <li><a class="btn btn--primary" href="#contact">Get in touch</a></li>
       </ul>
     </div>
 
@@ -105,14 +97,14 @@
        Each gauge needs data-value and data-max. data-max sets where the
        needle reaches full scale, so pick a number a bit above the value.
        The age gauge is different: give it data-birthdate and it works its
-       own age out every time the page loads, so it never goes stale.
+       own age out every page load, so it never goes stale.
+       Add data-compact to shorten a big number (7400000 -> "7.4M").
        ===================================================================== -->
   <section class="wrap" aria-labelledby="stats-heading">
     <h2 class="vh" id="stats-heading">By the numbers</h2>
 
     <div class="gauges">
 
-      <!-- REPLACE: your real date of birth, as YYYY-MM-DD. -->
       <figure class="gauge reveal" data-gauge data-birthdate="2003-01-11" data-max="40" data-label="Age">
         <div class="gauge__dial-wrap">
           <svg class="gauge__dial" viewBox="0 0 200 200" role="img" aria-label="Age: 23">
@@ -130,7 +122,6 @@
         <figcaption class="gauge__label">Age</figcaption>
       </figure>
 
-      <!-- REPLACE: data-value, and the number inside the readout span. -->
       <figure class="gauge reveal" data-gauge data-value="210" data-max="300" data-label="Movies watched">
         <div class="gauge__dial-wrap">
           <svg class="gauge__dial" viewBox="0 0 200 200" role="img" aria-label="Movies watched: 210">
@@ -148,9 +139,9 @@
         <figcaption class="gauge__label">Movies watched</figcaption>
       </figure>
 
-      <figure class="gauge reveal" data-gauge data-value="10" data-max="15" data-label="Projects started">
+      <figure class="gauge reveal" data-gauge data-value="7400000" data-max="10000000" data-compact data-label="Pounds lifted">
         <div class="gauge__dial-wrap">
-          <svg class="gauge__dial" viewBox="0 0 200 200" role="img" aria-label="Projects started: 10">
+          <svg class="gauge__dial" viewBox="0 0 200 200" role="img" aria-label="Pounds lifted: 7.4 million">
             <g transform="rotate(150 100 100)" fill="none">
               <circle class="gauge__ticks" cx="100" cy="100" r="88"/>
               <circle class="gauge__track" cx="100" cy="100" r="76"/>
@@ -160,9 +151,12 @@
             <g class="gauge__needle"><line x1="100" y1="100" x2="100" y2="36"/></g>
             <circle class="gauge__hub" cx="100" cy="100" r="6"/>
           </svg>
-          <span class="gauge__readout" data-readout>10</span>
+          <span class="gauge__readout" data-readout>7.4M</span>
         </div>
-        <figcaption class="gauge__label">Projects started</figcaption>
+        <figcaption class="gauge__label">
+          Pounds lifted
+          <span class="gauge__note">&asymp; 9 Boeing 747s</span>
+        </figcaption>
       </figure>
 
     </div>
@@ -170,37 +164,196 @@
 
   <hr class="rule">
 
-  <!-- ===== ROUTES TO THE OTHER PAGES ===================================== -->
-  <section class="wrap section" aria-labelledby="routes-heading">
+  <!-- ===== INTERESTS =====================================================
+       The bulk of the site. Projects and personal interests together.
+       To add one: copy a card, bump the number, swap the image.
+       ===================================================================== -->
+  <section class="wrap section" id="interests" aria-labelledby="interests-heading">
     <div class="section-head">
-      <span class="section-head__eyebrow">Where to next</span>
-      <h2 id="routes-heading">Three ways in</h2>
+      <span class="section-head__eyebrow">The whole picture</span>
+      <h2 id="interests-heading">Take a look at what I'm interested in</h2>
+      <p class="section-head__lede">
+        Some of this I build, some of this I just can't stop reading about. The
+        line between the two has never been that clear to me.
+      </p>
     </div>
 
-    <div class="grid grid--3">
-      <article class="card reveal">
+    <div class="interests-grid">
+
+      <!-- 01 MOVIES -->
+      <article class="card interest-card reveal">
+        <span class="interest-card__no">01</span>
+        <div class="card__media">
+          <img src="media/placeholder-shot.svg" alt="" width="800" height="500" loading="lazy" decoding="async">
+        </div>
         <div class="card__body">
-          <h3 class="card__title"><span class="plate">01 — Projects</span></h3>
-          <p>Desktop software, a health dashboard I actually use every day, and the AI work I do professionally.</p>
-          <a class="link-arrow" href="projects.html">See the work <span aria-hidden="true">&rarr;</span></a>
+          <h3>Movies</h3>
+          <!-- REPLACE: what you actually look for in a film, and a few favourites. -->
+          <p>210 and counting. I keep a list, I rewatch the good ones, and I have
+            strong opinions about endings.</p>
+          <p class="interest-card__soon">Favourites list coming</p>
         </div>
       </article>
 
-      <article class="card reveal">
+      <!-- 02 FAVOURITE READS -->
+      <article class="card interest-card reveal">
+        <span class="interest-card__no">02</span>
+        <div class="card__media">
+          <img src="media/placeholder-shot.svg" alt="" width="800" height="500" loading="lazy" decoding="async">
+        </div>
         <div class="card__body">
-          <h3 class="card__title"><span class="plate">02 — Music</span></h3>
-          <p>Beats and instrumentals I've made, plus whatever's currently on repeat.</p>
-          <a class="link-arrow" href="music.html">Have a listen <span aria-hidden="true">&rarr;</span></a>
+          <h3>Favourite Reads</h3>
+          <!-- REPLACE: the books that actually changed how you think. -->
+          <p>Mostly military and financial history, which are the same subject that
+            people keep filing separately. Wars are won by whoever can still borrow
+            money in year four.</p>
+          <p class="interest-card__soon">Reading list coming</p>
         </div>
       </article>
 
-      <article class="card reveal">
+      <!-- 03 MUSIC -->
+      <article class="card interest-card reveal">
+        <span class="interest-card__no">03</span>
+        <div class="card__media">
+          <img src="media/shots/music-manager.jpg" alt="The desktop music manager playing Honey by Ruby Haunt, album art spinning as a record above the desk" width="1500" height="825" loading="lazy" decoding="async">
+        </div>
         <div class="card__body">
-          <h3 class="card__title"><span class="plate">03 — About</span></h3>
-          <p>Muscle cars, military and financial history, Renaissance painting, Greek myth, and cutting hair.</p>
-          <a class="link-arrow" href="about.html">The rest of it <span aria-hidden="true">&rarr;</span></a>
+          <h3>Music</h3>
+          <p>I make beats, and I built a desktop app to manage the listening side —
+            Spotify playlists and my own local files finally in one place.</p>
+          <a class="link-arrow" href="music.html">Listen and look <span aria-hidden="true">&rarr;</span></a>
         </div>
       </article>
+
+      <!-- 04 HEALTH -->
+      <article class="card interest-card reveal">
+        <span class="interest-card__no">04</span>
+        <div class="card__media">
+          <img src="media/shots/health-dashboard.jpg" alt="The health dashboard showing calorie, protein, carb, fat and fibre targets alongside a daily food log" width="1500" height="730" loading="lazy" decoding="async">
+        </div>
+        <div class="card__body">
+          <h3>Health</h3>
+          <p>Every nutrition app wants a subscription and a guess at what you ate, so
+            I built my own. Meals, supplements and macros, tracked the way I actually
+            eat. It's the thing I use most.</p>
+          <a class="link-arrow" href="project-health-dashboard.html">Read more <span aria-hidden="true">&rarr;</span></a>
+        </div>
+      </article>
+
+      <!-- 05 BARBERING -->
+      <article class="card interest-card reveal">
+        <span class="interest-card__no">05</span>
+        <div class="card__media">
+          <img src="media/placeholder-shot.svg" alt="" width="800" height="500" loading="lazy" decoding="async">
+        </div>
+        <div class="card__body">
+          <h3>Barbering</h3>
+          <!-- REPLACE: how you got into it, who you cut for. -->
+          <p>I cut hair freelance. It's the only thing I do where the feedback is
+            immediate, physical and completely unambiguous — you cannot ship a fade
+            and patch it in the next release.</p>
+          <p class="interest-card__soon">Photos coming</p>
+        </div>
+      </article>
+
+      <!-- 06 EXTENDED REALITY -->
+      <article class="card interest-card reveal">
+        <span class="interest-card__no">06</span>
+        <div class="card__media">
+          <img src="media/placeholder-shot.svg" alt="" width="800" height="500" loading="lazy" decoding="async">
+        </div>
+        <div class="card__body">
+          <h3>Extended Reality</h3>
+          <!-- REPLACE: what you're building in XR and why. -->
+          <p>Building in Unreal, and trying to work out which parts of XR are actually
+            useful versus which parts are a demo that dies after the first five minutes.</p>
+          <p class="interest-card__soon">Project details coming</p>
+        </div>
+      </article>
+
+      <!-- 07 YOUTUBE CONTENT -->
+      <article class="card interest-card reveal">
+        <span class="interest-card__no">07</span>
+        <div class="card__media">
+          <img src="media/placeholder-shot.svg" alt="" width="800" height="500" loading="lazy" decoding="async">
+        </div>
+        <div class="card__body">
+          <h3>YouTube Content</h3>
+          <!-- REPLACE: what the channel is about, and link it. -->
+          <p>Filming and editing, mostly about the things on the rest of this page.</p>
+          <p class="interest-card__soon">Channel link coming</p>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <!-- ===== CONTACT =======================================================
+       Netlify reads this form at deploy time and collects submissions under
+       Forms in the site dashboard. It only works once deployed — submitting
+       from a local server will 404, which is expected.
+       ===================================================================== -->
+  <section class="wrap section" id="contact" aria-labelledby="contact-heading">
+    <div class="section-head">
+      <span class="section-head__eyebrow">Say hello</span>
+      <h2 id="contact-heading">Get in touch</h2>
+      <p class="section-head__lede">
+        Work, a project, a track, or a haircut — all fine. I read everything that
+        comes through here.
+      </p>
+    </div>
+
+    <div class="contact-split">
+      <form name="contact" method="POST" action="/thanks.html"
+            data-netlify="true" netlify-honeypot="bot-field">
+
+        <input type="hidden" name="form-name" value="contact">
+
+        <p class="hp" aria-hidden="true">
+          <label>Leave this field empty <input name="bot-field" tabindex="-1" autocomplete="off"></label>
+        </p>
+
+        <div class="field">
+          <label class="field__label" for="name">Your name</label>
+          <input id="name" name="name" type="text" autocomplete="name" required>
+        </div>
+
+        <div class="field">
+          <label class="field__label" for="email">Email</label>
+          <input id="email" name="email" type="email" autocomplete="email" required
+                 aria-describedby="email-hint">
+          <span class="field__hint" id="email-hint">So I can write back.</span>
+        </div>
+
+        <div class="field">
+          <label class="field__label" for="message">Message</label>
+          <textarea id="message" name="message" rows="7" required></textarea>
+        </div>
+
+        <button class="btn btn--primary" type="submit">Send it</button>
+      </form>
+
+      <aside class="panel contact-aside reveal" aria-labelledby="elsewhere-heading">
+        <h3 id="elsewhere-heading" class="vh">Elsewhere</h3>
+        <dl>
+          <dt>Email</dt>
+          <dd><a href="mailto:reefloubani@gmail.com">reefloubani@gmail.com</a></dd>
+
+          <dt>GitHub</dt>
+          <dd><a href="https://github.com/reef111qq">github.com/reef111qq</a></dd>
+
+          <dt>LinkedIn</dt>
+          <dd><a href="https://www.linkedin.com/in/reef-loubani-is-pretty-cool/">reef-loubani-is-pretty-cool</a></dd>
+
+          <dt>BandLab</dt>
+          <dd><a href="https://www.bandlab.com/madebyreef">bandlab.com/madebyreef</a></dd>
+
+          <dt>Response time</dt>
+          <dd>Usually a day or two.</dd>
+        </dl>
+      </aside>
     </div>
   </section>
 
@@ -209,7 +362,7 @@
 <footer class="foot">
   <div class="wrap foot__inner">
     <p class="mono">&copy; Reef Loubani</p>
-    <p><a href="contact.html">reefloubani@gmail.com</a></p>
+    <p><a href="mailto:reefloubani@gmail.com">reefloubani@gmail.com</a></p>
   </div>
 </footer>
 

@@ -122,6 +122,50 @@ main { position: relative; z-index: 1; view-transition-name: page; }
 .grid--2 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); }
 
 /* ==========================================================================
+   INTERESTS — the spine of the single page. Projects and personal interests
+   live together here rather than being split across separate pages.
+   ========================================================================== */
+.interests-grid {
+  display: grid;
+  gap: var(--space-m);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 290px), 1fr));
+}
+
+.interest-card { position: relative; }
+
+/* A numbered plate in the corner, like a gauge marking. */
+.interest-card__no {
+  position: absolute;
+  top: var(--space-s);
+  right: var(--space-s);
+  z-index: 2;
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: 0.12em;
+  color: var(--amber);
+  background: rgba(10, 13, 17, 0.72);
+  backdrop-filter: blur(6px);
+  border: 1px solid color-mix(in srgb, var(--amber) 30%, transparent);
+  border-radius: 3px;
+  padding: 0.2em 0.5em;
+}
+
+.interest-card .card__media { aspect-ratio: 16 / 11; }
+.interest-card h3 { font-size: var(--step-1); margin-bottom: var(--space-2xs); }
+.interest-card p { color: var(--bone-dim); }
+
+/* Marks a card whose content isn't written yet. */
+.interest-card__soon {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--chrome-lo);
+  margin-top: auto;
+  padding-top: var(--space-s);
+}
+
+/* ==========================================================================
    ABOUT
    ========================================================================== */
 .about-lede {
