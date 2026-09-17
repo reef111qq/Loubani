@@ -22,7 +22,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Inter:wght@400..600&family=Roboto+Mono:wght@400..600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400..600&family=Roboto+Mono:wght@400..600&display=swap">
 
 <link rel="stylesheet" href="styles/tokens.css">
 <link rel="stylesheet" href="styles/base.css">
@@ -66,6 +66,48 @@
 
 <main id="main">
 
+  <!-- Reference images taped up in the margins. Purely decorative, so the
+       whole layer is hidden from assistive tech and drops out below 1400px
+       where there is no margin left to put them in. -->
+  <div class="scatter" aria-hidden="true">
+    <figure class="clipping" data-speed="-0.03"
+            style="--top:5%; --right:-118px; --w:236px; --rot:6deg; --tape-rot:-9deg;">
+      <img src="media/scatter/panther.jpg" alt="" width="422" height="560" loading="lazy" decoding="async">
+    </figure>
+    <figure class="clipping" data-speed="0.042"
+            style="--top:15%; --left:-126px; --w:240px; --rot:-7deg; --tape-rot:8deg;">
+      <img src="media/scatter/hendrix.jpg" alt="" width="420" height="560" loading="lazy" decoding="async">
+    </figure>
+    <figure class="clipping" data-speed="-0.052"
+            style="--top:28%; --right:-104px; --w:196px; --rot:4deg; --tape-rot:-5deg;">
+      <img src="media/scatter/chrome-flow.jpg" alt="" width="285" height="560" loading="lazy" decoding="async">
+    </figure>
+    <figure class="clipping" data-speed="0.034"
+            style="--top:39%; --left:-100px; --w:184px; --rot:-5deg; --tape-rot:10deg;">
+      <img src="media/scatter/zine-spider.jpg" alt="" width="315" height="560" loading="lazy" decoding="async">
+    </figure>
+    <figure class="clipping" data-speed="0.048"
+            style="--top:50%; --right:-112px; --w:210px; --rot:8deg; --tape-rot:-7deg;">
+      <img src="media/scatter/knight.jpg" alt="" width="315" height="560" loading="lazy" decoding="async">
+    </figure>
+    <figure class="clipping" data-speed="-0.038"
+            style="--top:61%; --left:-116px; --w:224px; --rot:-6deg; --tape-rot:5deg;">
+      <img src="media/scatter/bar.jpg" alt="" width="446" height="560" loading="lazy" decoding="async">
+    </figure>
+    <figure class="clipping" data-speed="0.036"
+            style="--top:72%; --right:-96px; --w:180px; --rot:-4deg; --tape-rot:9deg;">
+      <img src="media/scatter/punk-collage.jpg" alt="" width="258" height="560" loading="lazy" decoding="async">
+    </figure>
+    <figure class="clipping" data-speed="-0.03"
+            style="--top:82%; --left:-92px; --w:172px; --rot:7deg; --tape-rot:-6deg;">
+      <img src="media/scatter/gradient.jpg" alt="" width="258" height="560" loading="lazy" decoding="async">
+    </figure>
+    <figure class="clipping" data-speed="0.04"
+            style="--top:91%; --right:-108px; --w:200px; --rot:5deg; --tape-rot:7deg;">
+      <img src="media/scatter/halftone-spider.jpg" alt="" width="378" height="560" loading="lazy" decoding="async">
+    </figure>
+  </div>
+
   <!-- ===== HERO ========================================================== -->
   <section class="wrap hero" aria-labelledby="hero-name">
     <div>
@@ -88,6 +130,9 @@
       <div class="portrait">
         <img src="media/portrait.jpg" alt="Reef Loubani at an alpine lake, pine trees and water behind him" width="900" height="1200" fetchpriority="high" decoding="async">
       </div>
+      <figure class="clipping clipping--loud hero__tape" style="--rot:-8deg; --tape-rot:12deg;" aria-hidden="true">
+        <img src="media/scatter/hendrix.jpg" alt="" width="420" height="560" loading="lazy" decoding="async">
+      </figure>
     </figure>
   </section>
 
@@ -287,6 +332,22 @@
 
     </div>
   </section>
+
+  <!-- The same clippings as a torn strip, so the collage still reads on a
+       phone where the margins have gone. -->
+  <div class="wrap">
+    <div class="collage-band" aria-hidden="true">
+      <figure style="--rot:-3deg;"><img src="media/scatter/hendrix.jpg" alt="" width="420" height="560" loading="lazy" decoding="async"></figure>
+      <figure style="--rot:2deg;"><img src="media/scatter/panther.jpg" alt="" width="422" height="560" loading="lazy" decoding="async"></figure>
+      <figure style="--rot:-2deg;"><img src="media/scatter/punk-collage.jpg" alt="" width="258" height="560" loading="lazy" decoding="async"></figure>
+      <figure style="--rot:3deg;"><img src="media/scatter/knight.jpg" alt="" width="315" height="560" loading="lazy" decoding="async"></figure>
+      <figure style="--rot:-1deg;"><img src="media/scatter/bar.jpg" alt="" width="446" height="560" loading="lazy" decoding="async"></figure>
+      <figure style="--rot:2deg;"><img src="media/scatter/chrome-flow.jpg" alt="" width="285" height="560" loading="lazy" decoding="async"></figure>
+      <figure style="--rot:-3deg;"><img src="media/scatter/zine-spider.jpg" alt="" width="315" height="560" loading="lazy" decoding="async"></figure>
+      <figure style="--rot:1deg;"><img src="media/scatter/gradient.jpg" alt="" width="258" height="560" loading="lazy" decoding="async"></figure>
+      <figure style="--rot:-2deg;"><img src="media/scatter/halftone-spider.jpg" alt="" width="378" height="560" loading="lazy" decoding="async"></figure>
+    </div>
+  </div>
 
   <hr class="rule">
 

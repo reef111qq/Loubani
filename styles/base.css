@@ -1,11 +1,7 @@
 /* ==========================================================================
-   base.css — reset, typography, focus, page transitions, shared utilities.
+   base.css — reset, typography, grain, focus, shared utilities.
    ========================================================================== */
 
-/* --- Cross-document view transitions --------------------------------------
-   Two lines. Navigating between tabs cross-fades instead of hard-cutting.
-   Browsers without support simply navigate normally — nothing to maintain.
-   ------------------------------------------------------------------------ */
 @view-transition { navigation: auto; }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -19,16 +15,33 @@ html {
 body {
   margin: 0;
   min-height: 100svh;
-  background: var(--lacquer);
-  color: var(--bone);
+  background: var(--ink);
+  color: var(--paper);
   font-family: var(--font-body);
   font-size: var(--step-0);
   line-height: var(--leading-body);
   -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
+  overflow-x: hidden;          /* rotated clippings must never open a scrollbar */
 }
 
-/* A slow vignette so the ground reads as lacquer, not flat black. */
+/* --- GRAIN ----------------------------------------------------------------
+   The one texture every reference image shares. An SVG turbulence filter
+   tiled over the whole viewport — no image file, resolution independent,
+   and it sits above everything without ever catching a click.
+   ------------------------------------------------------------------------ */
+body::after {
+  content: "";
+  position: fixed;
+  inset: -50%;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.42;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+}
+
+/* A slow wash of ink colour behind everything, like a badly registered
+   second pass on a screenprint. */
 body::before {
   content: "";
   position: fixed;
@@ -36,70 +49,76 @@ body::before {
   pointer-events: none;
   z-index: 0;
   background:
-    radial-gradient(120% 80% at 50% -10%, rgba(240,182,74,0.055), transparent 62%),
-    radial-gradient(100% 70% at 50% 110%, rgba(216,64,47,0.045), transparent 60%);
+    radial-gradient(70% 50% at 8% -5%,  rgba(239,59,33,0.16), transparent 70%),
+    radial-gradient(60% 45% at 96% 12%, rgba(47,75,232,0.14), transparent 72%),
+    radial-gradient(80% 50% at 50% 104%, rgba(244,118,30,0.12), transparent 70%);
 }
 
 /* --- Headings -------------------------------------------------------------
-   Display face, condensed width axis. Numerals everywhere are mono.
+   Anton, set tight and big. It is a single-weight poster face, so hierarchy
+   comes from size and colour rather than weight.
    ------------------------------------------------------------------------ */
 h1, h2, h3, h4 {
   font-family: var(--font-display);
-  font-variation-settings: 'wdth' var(--wdth-condensed);
-  font-weight: 700;
+  font-weight: 400;
   line-height: var(--leading-tight);
-  letter-spacing: -0.015em;
+  letter-spacing: 0.005em;
   margin: 0 0 var(--space-s);
+  text-transform: uppercase;
   text-wrap: balance;
 }
 
 h1 { font-size: var(--step-4); }
 h2 { font-size: var(--step-3); }
-h3 { font-size: var(--step-1); letter-spacing: 0.01em; }
+h3 { font-size: var(--step-2); }
+h4 { font-size: var(--step-1); }
 
 p, li { text-wrap: pretty; }
 p { margin: 0 0 var(--space-s); max-width: var(--measure); }
 
 a {
-  color: var(--amber);
-  text-decoration-color: color-mix(in srgb, var(--amber) 42%, transparent);
+  color: var(--gold);
+  text-decoration-color: color-mix(in srgb, var(--gold) 45%, transparent);
   text-underline-offset: 0.22em;
   text-decoration-thickness: 1px;
   transition: color var(--dur-fast) var(--ease),
               text-decoration-color var(--dur-fast) var(--ease);
 }
-a:hover { color: var(--bone); text-decoration-color: var(--bone); }
+a:hover { color: var(--vermilion); text-decoration-color: var(--vermilion); }
 
 img, video, svg, iframe { max-width: 100%; }
 img, video { height: auto; display: block; }
 
 ul, ol { padding-inline-start: 1.15em; }
 
-::selection { background: var(--amber); color: var(--lacquer); }
+::selection { background: var(--vermilion); color: var(--ink); }
 
 /* --- Focus ----------------------------------------------------------------
-   One visible amber ring, on everything, always. Never removed.
+   One visible ring, on everything, always. Gold reads on every surface here.
    ------------------------------------------------------------------------ */
 :focus-visible {
-  outline: 2px solid var(--amber);
+  outline: 3px solid var(--gold);
   outline-offset: 3px;
-  border-radius: 3px;
+  border-radius: 0;
 }
 
 .skip-link {
   position: absolute;
   left: var(--space-s);
   top: var(--space-s);
-  z-index: 100;
+  z-index: 200;
   padding: 0.7em 1.1em;
-  background: var(--amber);
-  color: var(--lacquer);
-  font-weight: 600;
-  border-radius: var(--radius);
-  transform: translateY(-160%);
+  background: var(--vermilion);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: var(--step--2);
+  text-decoration: none;
+  transform: translateY(-180%);
   transition: transform var(--dur) var(--ease);
 }
-.skip-link:focus { transform: translateY(0); color: var(--lacquer); }
+.skip-link:focus { transform: translateY(0); color: var(--ink); }
 
 /* --- Layout helpers -------------------------------------------------------- */
 .wrap {
@@ -112,37 +131,48 @@ ul, ol { padding-inline-start: 1.15em; }
 .section { padding-block: var(--space-3xl); }
 .section--tight { padding-block: var(--space-xl); }
 
-/* Chrome hairline — a gradient rule, never a border. */
+/* A printed rule: thick vermilion bar, not a hairline. */
 .rule {
-  height: 1px;
+  height: 4px;
   border: 0;
   margin: 0;
-  background: var(--hairline);
-  opacity: 0.55;
+  background: var(--vermilion);
+  position: relative;
+  z-index: 1;
+}
+.rule::after {          /* the misregistered second pass */
+  content: "";
+  position: absolute;
+  left: 0; right: 0;
+  top: 5px;
+  height: 2px;
+  background: var(--cobalt);
+  opacity: 0.85;
 }
 
-/* Section heading with its own small numbered plate, like a gauge label. */
+/* Section heading furniture. */
 .section-head { margin-bottom: var(--space-l); }
 .section-head__eyebrow {
   display: inline-block;
   font-family: var(--font-mono);
   font-size: var(--step--2);
-  letter-spacing: 0.18em;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: var(--amber);
-  margin-bottom: var(--space-2xs);
+  color: var(--ink);
+  background: var(--gold);
+  padding: 0.35em 0.7em;
+  margin-bottom: var(--space-s);
 }
 .section-head__lede {
-  color: var(--bone-dim);
+  color: var(--paper-dim);
   font-size: var(--step-1);
   max-width: 54ch;
-  margin-top: var(--space-xs);
+  margin-top: var(--space-s);
 }
 
 .prose > * + * { margin-top: var(--space-s); }
 .mono { font-family: var(--font-mono); }
 
-/* Visible to screen readers only. */
 .vh {
   position: absolute !important;
   width: 1px; height: 1px;
@@ -152,24 +182,27 @@ ul, ol { padding-inline-start: 1.15em; }
   white-space: nowrap;
 }
 
-/* --- Reveal on scroll ------------------------------------------------------
-   Applied by scripts/reveal.js. The .reveal class is only added by JS, so
-   with JS disabled everything is simply visible from the start.
-   ------------------------------------------------------------------------ */
+/* --- Reveal on scroll ------------------------------------------------------ */
 .reveal {
   opacity: 0;
-  transform: translateY(14px);
+  transform: translateY(16px);
   transition: opacity 620ms var(--ease-out), transform 620ms var(--ease-out);
 }
 .reveal.is-in { opacity: 1; transform: none; }
 
+@media (scripting: none) {
+  .reveal { opacity: 1; transform: none; }
+}
+
 /* --- Footer ---------------------------------------------------------------- */
 .foot {
-  border-top: 1px solid var(--chrome-edge);
+  border-top: 4px solid var(--vermilion);
   padding-block: var(--space-l);
   margin-top: var(--space-2xl);
-  color: var(--bone-dim);
+  color: var(--paper-dim);
   font-size: var(--step--1);
+  position: relative;
+  z-index: 1;
 }
 .foot__inner {
   display: flex;
@@ -178,13 +211,10 @@ ul, ol { padding-inline-start: 1.15em; }
   align-items: center;
   justify-content: space-between;
 }
-.foot a { color: var(--bone-dim); }
-.foot a:hover { color: var(--amber); }
+.foot a { color: var(--paper-dim); }
+.foot a:hover { color: var(--vermilion); }
 
-/* --- Reduced motion --------------------------------------------------------
-   Honour the OS setting: gauges snap to value, reveals are instant,
-   page transitions stop animating.
-   ------------------------------------------------------------------------ */
+/* --- Reduced motion -------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after {
@@ -195,13 +225,5 @@ ul, ol { padding-inline-start: 1.15em; }
   ::view-transition-group(*),
   ::view-transition-old(*),
   ::view-transition-new(*) { animation: none !important; }
-  .reveal { opacity: 1; transform: none; }
-}
-
-/* --- No JavaScript ---------------------------------------------------------
-   Reveals are opt-in via class="reveal" in the markup, so if scripting is
-   unavailable this makes sure nothing is left stranded at opacity: 0.
-   ------------------------------------------------------------------------ */
-@media (scripting: none) {
   .reveal { opacity: 1; transform: none; }
 }

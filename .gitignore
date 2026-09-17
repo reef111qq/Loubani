@@ -10,3 +10,7 @@ Thumbs.db
 *.wav.original
 /audio/_raw/
 /media/_raw/
+
+# Full-resolution reference images — only the web-sized copies in
+# media/scatter/ belong in the repo.
+/Site design inspiration/

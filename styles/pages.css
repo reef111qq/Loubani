@@ -1,18 +1,67 @@
 /* ==========================================================================
-   pages.css — layout for each page. Components themselves live in
-   components.css; this file only arranges them.
+   pages.css — arrangement. Components live in components.css.
    ========================================================================== */
 
 main { position: relative; z-index: 1; view-transition-name: page; }
 
-/* Page-level cross-fade. The nav stays put (it has its own transition name). */
 ::view-transition-old(page) { animation: page-out 160ms var(--ease) both; }
 ::view-transition-new(page) { animation: page-in  280ms var(--ease-out) both; }
 @keyframes page-out { to { opacity: 0; transform: translateY(-6px); } }
 @keyframes page-in  { from { opacity: 0; transform: translateY(10px); } }
 
 /* ==========================================================================
-   HOME — hero
+   SCATTER — where the clippings are allowed to live.
+   They sit in the page margins and bleed off the edges. Below 1150px there
+   is no margin left to put them in, so the layer is dropped entirely and
+   the collage band carries the collage idea instead.
+   ========================================================================== */
+.scatter { display: none; }
+
+/* 1400px is where --page-max leaves a margin wide enough to hold a clipping
+   without it landing on the text. Narrower than that, the collage band and
+   the hero tape carry the idea instead. */
+@media (min-width: 1400px) {
+  .scatter { display: block; }
+}
+
+/* ==========================================================================
+   COLLAGE BAND — a torn strip of the same clippings, on every screen size,
+   so the collage still reads on a phone where the margins are gone.
+   ========================================================================== */
+.collage-band {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  gap: var(--space-s);
+  padding-block: var(--space-l);
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+}
+.collage-band figure {
+  flex: none;
+  width: clamp(110px, 16vw, 190px);
+  margin: 0;
+  border: 5px solid var(--paper);
+  box-shadow: var(--shadow-print);
+  transform: rotate(var(--rot, 0deg));
+  transition: transform var(--dur) var(--ease), filter var(--dur) var(--ease);
+  filter: saturate(0.9);
+  position: relative;
+}
+.collage-band figure:hover { transform: rotate(0deg) scale(1.05); filter: none; }
+.collage-band figure::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--halftone);
+  background-size: var(--halftone-size);
+  mix-blend-mode: overlay;
+}
+.collage-band img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; }
+
+/* ==========================================================================
+   HERO
    ========================================================================== */
 .hero {
   display: grid;
@@ -25,58 +74,57 @@ main { position: relative; z-index: 1; view-transition-name: page; }
 }
 
 .hero__greeting {
+  display: inline-block;
   font-family: var(--font-mono);
   font-size: var(--step--1);
-  letter-spacing: 0.2em;
+  letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: var(--amber);
-  margin-bottom: var(--space-s);
-  display: block;
+  color: var(--ink);
+  background: var(--vermilion);
+  padding: 0.35em 0.8em;
+  margin-bottom: var(--space-m);
 }
 .hero__name {
   margin-bottom: var(--space-m);
-  font-variation-settings: 'wdth' 76;
-  font-weight: 800;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.005em;
 }
+/* Knockout second line, like a two-colour print run. */
 .hero__name em {
   font-style: normal;
-  color: var(--red);
+  color: var(--vermilion);
   display: block;
+  -webkit-text-stroke: 0;
 }
-/* Hero pull-quote. The red rule echoes the "The problem" treatment on the
-   project cards, so the two pages share a gesture. */
+
 .hero__quote {
   margin: 0 0 var(--space-l);
   max-width: 46ch;
-  border-left: 2px solid var(--red);
+  border-left: 5px solid var(--gold);
   padding-left: var(--space-m);
 }
 .hero__quote p {
   font-size: var(--step-1);
-  color: var(--bone-dim);
+  color: var(--paper-dim);
   margin-bottom: var(--space-2xs);
 }
 .hero__quote cite {
   font-family: var(--font-mono);
   font-size: var(--step--2);
-  letter-spacing: 0.16em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--amber-text);
+  color: var(--gold);
   font-style: normal;
 }
 
 .hero__links { display: flex; flex-wrap: wrap; gap: var(--space-s); list-style: none; margin: 0; padding: 0; }
 
-/* Portrait — sits in a chrome frame with a recessed shadow. */
-.hero__figure { margin: 0; }
+.hero__figure { margin: 0; position: relative; }
 @media (max-width: 819px) { .hero__figure { order: -1; } }
 
 .portrait {
   position: relative;
-  border: 1px solid var(--chrome-edge);
-  border-radius: var(--radius-lg);
-  background: var(--lacquer-sunk);
+  border: 6px solid var(--paper);
+  background: var(--ink-3);
   overflow: hidden;
   aspect-ratio: 4 / 5;
   box-shadow: var(--shadow-lift);
@@ -84,23 +132,36 @@ main { position: relative; z-index: 1; view-transition-name: page; }
   margin-inline: auto;
 }
 .portrait img { width: 100%; height: 100%; object-fit: cover; }
-.portrait::after {                 /* a lit edge, like glass over a dial */
+.portrait::after {
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: linear-gradient(145deg, rgba(255,255,255,0.09), transparent 42%);
+  background-image: var(--halftone);
+  background-size: var(--halftone-size);
+  mix-blend-mode: overlay;
 }
 
-/* Photo sits above the text on a phone, but stays small so the name is still
-   the first thing on screen rather than being pushed below the fold. */
+/* The one clipping taped to the hero, visible at every screen size.
+   `top`/`right` are reset because the base .clipping rule defaults --top to 0,
+   which would otherwise beat the `bottom` below. */
+.hero__tape {
+  position: absolute;
+  z-index: 4;
+  width: clamp(92px, 13vw, 150px);
+  top: auto;
+  right: auto;
+  bottom: -26px;
+  left: -22px;
+}
 @media (max-width: 819px) {
   .portrait { max-width: 240px; }
   .hero { padding-block: var(--space-l) var(--space-xl); gap: var(--space-l); }
+  .hero__tape { width: 86px; top: auto; right: auto; bottom: -14px; left: max(-10px, calc(50% - 158px)); }
 }
 
 /* ==========================================================================
-   HOME — gauge cluster
+   GAUGES
    ========================================================================== */
 .gauges {
   display: grid;
@@ -109,21 +170,17 @@ main { position: relative; z-index: 1; view-transition-name: page; }
   padding: var(--space-xl) var(--space-m);
   margin: 0;
 }
-/* Cap the dial itself so a short row of gauges doesn't stretch them wide. */
 .gauges .gauge { max-width: 240px; margin-inline: auto; width: 100%; }
 
 /* ==========================================================================
-   Shared card grids
+   GRIDS
    ========================================================================== */
 .grid { display: grid; gap: var(--space-m); }
 .grid--3 { grid-template-columns: repeat(auto-fit, minmax(255px, 1fr)); }
-/* 420px min means a third column can't fit inside --page-max, so this really
-   is two-up on desktop — screenshots need the width to stay readable. */
 .grid--2 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); }
 
 /* ==========================================================================
-   INTERESTS — the spine of the single page. Projects and personal interests
-   live together here rather than being split across separate pages.
+   INTERESTS — the spine of the page
    ========================================================================== */
 .interests-grid {
   display: grid;
@@ -133,70 +190,38 @@ main { position: relative; z-index: 1; view-transition-name: page; }
 
 .interest-card { position: relative; }
 
-/* A numbered plate in the corner, like a gauge marking. */
 .interest-card__no {
   position: absolute;
-  top: var(--space-s);
-  right: var(--space-s);
+  top: 0;
+  right: 0;
   z-index: 2;
-  font-family: var(--font-mono);
-  font-size: var(--step--2);
-  letter-spacing: 0.12em;
-  color: var(--amber);
-  background: rgba(10, 13, 17, 0.72);
-  backdrop-filter: blur(6px);
-  border: 1px solid color-mix(in srgb, var(--amber) 30%, transparent);
-  border-radius: 3px;
-  padding: 0.2em 0.5em;
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  line-height: 1;
+  color: var(--ink);
+  background: var(--gold);
+  padding: 0.25em 0.45em;
 }
 
 .interest-card .card__media { aspect-ratio: 16 / 11; }
-.interest-card h3 { font-size: var(--step-1); margin-bottom: var(--space-2xs); }
-.interest-card p { color: var(--bone-dim); }
+.interest-card h3 { margin-bottom: var(--space-2xs); }
+.interest-card p { color: var(--paper-dim); }
 
-/* Marks a card whose content isn't written yet. */
 .interest-card__soon {
   font-family: var(--font-mono);
   font-size: var(--step--2);
-  letter-spacing: 0.14em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--chrome-lo);
+  color: var(--paper-dim);
   margin-top: auto;
   padding-top: var(--space-s);
-}
-
-/* ==========================================================================
-   ABOUT
-   ========================================================================== */
-.about-lede {
-  font-size: var(--step-2);
-  font-family: var(--font-display);
-  font-variation-settings: 'wdth' 90;
-  line-height: var(--leading-snug);
-  max-width: 24ch;
-}
-@media (min-width: 900px) {
-  .about-intro { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: var(--space-2xl); align-items: start; }
-}
-
-.interests { display: grid; gap: var(--space-m); grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); }
-.interest { padding: var(--space-m); }
-.interest h3 { margin-bottom: var(--space-2xs); color: var(--bone); }
-.interest p:last-child { margin-bottom: 0; }
-.interest__no {
-  font-family: var(--font-mono);
-  font-size: var(--step--2);
-  letter-spacing: 0.16em;
-  color: var(--amber);
-  display: block;
-  margin-bottom: var(--space-2xs);
+  border-top: 1px dashed rgba(239,230,208,0.22);
 }
 
 /* ==========================================================================
    MUSIC
    ========================================================================== */
 .embeds { display: grid; gap: var(--space-m); grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
-
 @media (min-width: 900px) {
   .music-split { display: grid; grid-template-columns: 1.25fr 0.75fr; gap: var(--space-2xl); align-items: start; }
 }
@@ -212,9 +237,9 @@ main { position: relative; z-index: 1; view-transition-name: page; }
 .contact-aside dt {
   font-family: var(--font-mono);
   font-size: var(--step--2);
-  letter-spacing: 0.15em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--amber);
+  color: var(--gold);
   margin-top: var(--space-m);
 }
 .contact-aside dt:first-child { margin-top: 0; }
@@ -229,32 +254,32 @@ main { position: relative; z-index: 1; view-transition-name: page; }
   gap: 0.5em;
   font-family: var(--font-mono);
   font-size: var(--step--2);
-  letter-spacing: 0.14em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   text-decoration: none;
   margin-bottom: var(--space-m);
 }
 .writeup__figure {
   margin: 0 0 var(--space-l);
-  border: 1px solid var(--chrome-edge);
-  border-radius: var(--radius-lg);
+  border: 3px solid var(--paper);
   overflow: hidden;
-  background: var(--lacquer-sunk);
-  box-shadow: var(--shadow-panel);
+  background: var(--ink-3);
+  box-shadow: var(--shadow-print);
 }
 .writeup__figure img,
 .writeup__figure video { width: 100%; display: block; }
 .writeup__figure figcaption {
   padding: var(--space-xs) var(--space-s);
-  border-top: 1px solid var(--chrome-edge);
+  border-top: 3px solid var(--paper);
+  font-family: var(--font-mono);
   font-size: var(--step--1);
-  color: var(--bone-dim);
+  color: var(--paper-dim);
 }
 .writeup h2 {
   font-size: var(--step-2);
   margin-top: var(--space-l);
   padding-top: var(--space-s);
-  border-top: 1px solid var(--chrome-edge);
+  border-top: 3px solid var(--vermilion);
 }
 .writeup .btn { margin-top: var(--space-l); }
 
@@ -271,9 +296,12 @@ main { position: relative; z-index: 1; view-transition-name: page; }
 }
 .slab__code {
   font-family: var(--font-mono);
-  font-size: var(--step-2);
-  letter-spacing: 0.3em;
-  color: var(--amber);
+  font-size: var(--step-1);
+  letter-spacing: 0.35em;
+  color: var(--ink);
+  background: var(--vermilion);
+  padding: 0.4em 0.9em;
+  justify-self: center;
 }
 .slab p { margin-inline: auto; }
 .slab .btn { justify-self: center; }
