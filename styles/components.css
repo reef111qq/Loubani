@@ -531,6 +531,36 @@ input[type="range"]::-moz-range-thumb {
 .deck__track:hover .deck__track-num,
 .deck__track:hover .deck__track-time { color: var(--ink); }
 .deck__track-title { flex: 1; min-width: 0; }
+
+/* Genre sits between the title and the time. Stamped, not interactive —
+   there is no filtering here, it just tells you what a track is. */
+.deck__track-genre {
+  flex: none;
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid color-mix(in srgb, var(--gold) 40%, transparent);
+  padding: 0.2em 0.5em;
+  white-space: nowrap;
+}
+.deck__track:hover .deck__track-genre { color: var(--ink); border-color: var(--ink); }
+
+/* On a narrow deck the genre drops below the title rather than squeezing
+   the title down to nothing. */
+@media (max-width: 520px) {
+  .deck__track { flex-wrap: wrap; row-gap: 0.4em; }
+  .deck__track-title { flex: 1 1 60%; }
+  .deck__track-genre { order: 3; margin-left: 2.6ch; }
+  .deck__track-time { margin-left: auto; }
+}
+
+.deck__more {
+  margin: var(--space-m) 0 0;
+  font-size: var(--step--1);
+  color: var(--paper-dim);
+}
 .deck__track-time {
   font-family: var(--font-mono);
   font-size: var(--step--2);
@@ -835,4 +865,25 @@ input[type="range"]::-moz-range-thumb {
 /* A dock restored as open should simply be open, with no motion at all. */
 @media (prefers-reduced-motion: reduce) {
   .dock__panel, .dock__panel > * { transition: none !important; }
+}
+
+
+/* ==========================================================================
+   10. CALLOUT — a closing invitation at the foot of a page
+   ========================================================================== */
+.callout {
+  border: 3px solid var(--vermilion);
+  background: var(--ink-2);
+  box-shadow: var(--shadow-print);
+  padding: clamp(var(--space-m), 4vw, var(--space-xl));
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-m);
+  align-items: center;
+  justify-content: space-between;
+}
+.callout h2 {
+  font-size: var(--step-2);
+  margin: 0;
+  max-width: 24ch;
 }
