@@ -875,15 +875,20 @@ input[type="range"]::-moz-range-thumb {
   border: 3px solid var(--vermilion);
   background: var(--ink-2);
   box-shadow: var(--shadow-print);
-  padding: clamp(var(--space-m), 4vw, var(--space-xl));
+  padding: clamp(var(--space-l), 5vw, var(--space-2xl)) clamp(var(--space-m), 4vw, var(--space-xl));
   display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-m);
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  gap: var(--space-l);
+  text-align: center;
 }
+/* Sentence case rather than the shouted all-caps every other heading uses —
+   this one is an invitation, and Anton in caps reads as a demand. */
 .callout h2 {
   font-size: var(--step-2);
+  text-transform: none;
+  letter-spacing: 0.01em;
+  line-height: 1.12;
   margin: 0;
-  max-width: 24ch;
+  max-width: 26ch;
 }
