@@ -72,15 +72,6 @@ browser plays. The one gap is Firefox on Linux without system codecs installed.
 If that ever matters, convert to mp3 (`brew install ffmpeg`, then
 `ffmpeg -i in.m4a -b:a 192k out.mp3`) and update the two lists.
 
-## Adding a BandLab embed
-
-On BandLab: open the track → Share → Embed. Copy the `src` URL out of the code
-it gives you and paste it into `data-embed` on one of the `<button class="facade">`
-elements in `music.html`.
-
-The embed doesn't load until someone clicks it. That keeps the page fast and
-means BandLab's scripts never run for visitors who don't press play.
-
 ## Deploying
 
 Push to GitHub, then in Netlify: Add new site → Import an existing project.

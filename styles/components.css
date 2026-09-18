@@ -547,59 +547,7 @@ input[type="range"]::-moz-range-thumb {
 }
 
 /* ==========================================================================
-   7. EMBED FACADE (BandLab)
-   ========================================================================== */
-.facade {
-  position: relative;
-  display: block;
-  width: 100%;
-  padding: 0;
-  border: 2px solid var(--paper);
-  background: var(--ink-3);
-  overflow: hidden;
-  cursor: pointer;
-  color: var(--paper);
-  text-align: left;
-  aspect-ratio: 16 / 10;
-  box-shadow: var(--shadow-print);
-}
-.facade img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease); }
-.facade:hover img { opacity: 0.95; transform: scale(1.03); }
-.facade__overlay {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  gap: var(--space-2xs);
-  padding: var(--space-m);
-  background: linear-gradient(to top, rgba(12,10,11,0.94) 12%, rgba(12,10,11,0.15) 70%);
-}
-.facade__play {
-  position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  width: 60px; height: 60px;
-  display: grid; place-items: center;
-  background: var(--vermilion);
-  color: var(--ink);
-  transition: transform var(--dur) var(--ease), background var(--dur) var(--ease);
-}
-.facade:hover .facade__play { transform: translate(-50%, -50%) scale(1.1); background: var(--gold); color: var(--ink); }
-.facade__play svg { width: 22px; height: 22px; fill: currentColor; margin-left: 3px; }
-.facade__title { font-family: var(--font-display); font-size: var(--step-2); text-transform: uppercase; }
-.facade__meta  { font-family: var(--font-mono); font-size: var(--step--2); letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); }
-
-.embed-frame {
-  border: 2px solid var(--paper);
-  overflow: hidden;
-  aspect-ratio: 16 / 10;
-  background: var(--ink-3);
-}
-.embed-frame iframe { width: 100%; height: 100%; border: 0; display: block; }
-
-/* ==========================================================================
-   8. LISTENING LIST
+   7. LISTENING LIST
    ========================================================================== */
 .spins {
   list-style: none; margin: 0; padding: 0;
@@ -638,7 +586,7 @@ input[type="range"]::-moz-range-thumb {
 .spin__link:hover .spin__artist { color: var(--ink); }
 
 /* ==========================================================================
-   9. FORM
+   8. FORM
    ========================================================================== */
 .field { margin-bottom: var(--space-m); }
 .field__label {
@@ -673,9 +621,14 @@ input[type="range"]::-moz-range-thumb {
 
 
 /* ==========================================================================
-   10. DOCK — the persistent player, bottom-left of the home page.
-   Audio behaviour is shared with the tape deck via player.js; only the
-   open/closed panel is the dock's own.
+   9. DOCK — the floating player, bottom-left of the home page.
+
+   Deliberately the one rounded, soft-shadowed object on the site: the rest
+   of the design is hard-edged print, but a floating player reads better as
+   a physical card. It keeps the site's palette so it still belongs here.
+
+   Audio behaviour is shared with the tape deck via player.js. This file
+   only describes the two states and the move between them.
    ========================================================================== */
 .dock {
   position: fixed;
@@ -683,113 +636,203 @@ input[type="range"]::-moz-range-thumb {
   bottom: var(--gutter);
   z-index: 70;
   width: min(330px, calc(100vw - (var(--gutter) * 2)));
-  background: var(--ink-2);
-  border: 2px solid var(--paper);
-  box-shadow: var(--shadow-lift);
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--ink-2) 82%, transparent);
+  backdrop-filter: blur(18px) saturate(1.3);
+  -webkit-backdrop-filter: blur(18px) saturate(1.3);
+  border: 1px solid rgba(239, 230, 208, 0.18);
+  box-shadow: 0 18px 44px -12px rgba(0, 0, 0, 0.75),
+              0 2px 8px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
 }
 
+/* --- Collapsed bar: [art] [title / artist] [play] [chevron] --------------- */
 .dock__bar {
   display: flex;
-  align-items: stretch;
-  gap: 0;
+  align-items: center;
+  gap: var(--space-2xs);
+  padding: 10px;
 }
 
-.dock__play {
-  --size: 52px;
-  width: var(--size);
-  height: var(--size);
+.dock__art {
+  width: 44px;
+  height: 44px;
   flex: none;
-  place-items: center;
-  border: 0;
-  border-right: 2px solid var(--paper);
-  background: var(--vermilion);
-  color: var(--ink);
-  cursor: pointer;
-  transition: background var(--dur-fast) var(--ease);
+  border-radius: 11px;
+  object-fit: cover;
+  background: var(--ink-3);
 }
-.dock__play:hover { background: var(--gold); }
-.dock__play[disabled] { opacity: 0.4; cursor: not-allowed; }
-.dock__play svg { width: 18px; height: 18px; fill: currentColor; }
 
 .dock__meta {
   flex: 1;
   min-width: 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding: 0 var(--space-xs);
-  gap: 2px;
-}
-.dock__label {
-  font-family: var(--font-mono);
-  font-size: 0.62rem;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--gold);
+  gap: 1px;
+  padding-inline: var(--space-3xs);
 }
 .dock__now {
-  font-family: var(--font-mono);
-  font-size: var(--step--2);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--step--1);
   color: var(--paper);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.dock__label {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  color: var(--paper-dim);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
-.dock__expand {
-  width: 38px;
+/* Round play controls. The small one lives in the bar, the large one in the
+   transport row; only one is on screen at a time. */
+.dock__play {
+  place-items: center;
   flex: none;
   border: 0;
-  border-left: 2px solid var(--paper);
+  border-radius: 50%;
+  background: var(--vermilion);
+  color: var(--ink);
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease),
+              transform var(--dur-fast) var(--ease);
+}
+.dock__play:hover { background: var(--gold); transform: scale(1.06); }
+.dock__play:active { transform: scale(0.96); }
+.dock__play[disabled] { opacity: 0.4; cursor: not-allowed; transform: none; }
+.dock__play svg { fill: currentColor; }
+
+.dock__play--sm { width: 34px; height: 34px; }
+.dock__play--sm svg { width: 13px; height: 13px; }
+.dock__play--lg { width: 48px; height: 48px; }
+.dock__play--lg svg { width: 17px; height: 17px; }
+
+/* The bar's play button gives way to the transport row once open. */
+.dock.is-open .dock__play--sm { display: none; }
+
+.dock__expand {
+  width: 30px;
+  height: 30px;
+  flex: none;
+  border: 0;
+  border-radius: 50%;
   background: transparent;
-  color: var(--paper);
+  color: var(--paper-dim);
   cursor: pointer;
   display: grid;
   place-items: center;
-  transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+  transition: color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
 }
-.dock__expand:hover { background: var(--gold); color: var(--ink); }
-.dock__expand svg { width: 14px; height: 14px; fill: currentColor; transition: transform var(--dur) var(--ease); }
+.dock__expand:hover { color: var(--paper); background: rgba(239,230,208,0.1); }
+.dock__expand svg {
+  width: 14px; height: 14px;
+  fill: currentColor;
+  transition: transform var(--dur) var(--ease);
+}
 .dock.is-open .dock__expand svg { transform: rotate(180deg); }
 
-.dock__panel { border-top: 2px solid var(--paper); padding: var(--space-xs); }
+/* --- The open/close move -------------------------------------------------
+   grid-template-rows 0fr -> 1fr is the one dependable way to animate to a
+   height the browser calculates. The inner element needs min-height:0 and
+   overflow:hidden or it refuses to be squashed.
+   ------------------------------------------------------------------------ */
+.dock__panel {
+  display: grid;
+  grid-template-rows: 0fr;
+}
+.dock__panel > * {
+  min-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity var(--dur-fast) var(--ease);
+}
+.dock.is-open .dock__panel { grid-template-rows: 1fr; }
+.dock.is-open .dock__panel > * { opacity: 1; transition-delay: 90ms; }
+
+/* Transitions are switched on after the first paint so a dock restored from
+   storage as "open" appears open instead of animating open. */
+.dock.is-ready .dock__panel {
+  transition: grid-template-rows 340ms var(--ease-out);
+}
+
+.dock__panel-inner { padding: 0 12px 12px; }
 
 .dock__scrubrow {
   display: flex;
   align-items: center;
   gap: var(--space-2xs);
   font-family: var(--font-mono);
-  font-size: 0.62rem;
+  font-size: 0.66rem;
   color: var(--paper-dim);
+  margin-bottom: var(--space-2xs);
 }
 .dock__scrubrow input[type="range"] { flex: 1; min-width: 0; }
+
+/* Rounded track and thumb, to match the card rather than the print UI. */
+.dock input[type="range"]::-webkit-slider-runnable-track { border-radius: 3px; }
+.dock input[type="range"]::-moz-range-track { border-radius: 3px; }
+.dock input[type="range"]::-moz-range-progress { border-radius: 3px; }
+.dock input[type="range"]::-webkit-slider-thumb { border-radius: 50%; width: 13px; height: 13px; margin-top: -3.5px; }
+.dock input[type="range"]::-moz-range-thumb { border-radius: 50%; width: 13px; height: 13px; }
+
+.dock__transport {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-m);
+}
+.dock__step {
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--paper);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
+}
+.dock__step:hover { color: var(--gold); background: rgba(239,230,208,0.1); }
+.dock__step svg { width: 15px; height: 15px; fill: currentColor; }
 
 .dock__list {
   list-style: none;
   margin: var(--space-2xs) 0 0;
   padding: 0;
-  max-height: 168px;
+  max-height: 150px;
   overflow-y: auto;
+  border-top: 1px solid rgba(239,230,208,0.12);
 }
 .dock__track {
   display: flex;
   gap: var(--space-2xs);
   align-items: baseline;
-  padding: 0.5em 0.35em;
+  padding: 0.5em 0.4em;
+  border-radius: 8px;
   color: var(--paper);
   text-decoration: none;
   font-size: var(--step--2);
-  border-bottom: 1px solid rgba(239,230,208,0.12);
 }
-.dock__track:hover { background: var(--gold); color: var(--ink); }
+.dock__track:hover { background: rgba(239,230,208,0.1); color: var(--paper); }
 .dock__track[aria-current="true"] { color: var(--vermilion); }
 .dock__track-title { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .dock__track-time { font-family: var(--font-mono); color: var(--paper-dim); flex: none; }
-.dock__track:hover .dock__track-time { color: var(--ink); }
 
 .dock__empty { margin: var(--space-2xs) 0 0; font-size: var(--step--2); color: var(--paper-dim); }
 
 @media (max-width: 560px) {
   .dock { width: calc(100vw - (var(--gutter) * 2)); }
-  .dock__list { max-height: 132px; }
+  .dock__list { max-height: 120px; }
+}
+
+/* A dock restored as open should simply be open, with no motion at all. */
+@media (prefers-reduced-motion: reduce) {
+  .dock__panel, .dock__panel > * { transition: none !important; }
 }

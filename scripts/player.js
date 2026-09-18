@@ -26,14 +26,18 @@ export function createPlayer(root) {
   const durationEl= root.querySelector('[data-duration]');
   const scrub     = root.querySelector('[data-scrub]');
   const volume    = root.querySelector('[data-vol]');
-  const playBtn   = root.querySelector('[data-toggle]');
+  // More than one play control is allowed: the dock has a small one in its
+  // collapsed bar and a large one in its expanded transport row, and both
+  // drive the same audio and show the same icon state.
+  const playBtns  = Array.from(root.querySelectorAll('[data-toggle]'));
   const prevBtn   = root.querySelector('[data-prev]');
   const nextBtn   = root.querySelector('[data-next]');
   const emptyEl   = root.querySelector('[data-empty]');
+  const artEl     = root.querySelector('[data-art]');
 
   // No tracks in /audio yet — say so plainly and disable the transport.
   if (!tracks.length) {
-    [playBtn, prevBtn, nextBtn, scrub].forEach((el) => el && (el.disabled = true));
+    [...playBtns, prevBtn, nextBtn, scrub].forEach((el) => el && (el.disabled = true));
     if (emptyEl) emptyEl.hidden = false;
     if (nowEl) nowEl.textContent = 'No tracks loaded';
     return;
@@ -49,7 +53,7 @@ export function createPlayer(root) {
     });
   });
 
-  playBtn?.addEventListener('click', toggle);
+  playBtns.forEach((btn) => btn.addEventListener('click', toggle));
   prevBtn?.addEventListener('click', () => select(index - 1, !audio.paused));
   nextBtn?.addEventListener('click', () => select(index + 1, !audio.paused));
 
@@ -94,6 +98,7 @@ export function createPlayer(root) {
 
     audio.src = link.getAttribute('href');
     if (nowEl) nowEl.textContent = link.dataset.title || link.textContent.trim();
+    if (artEl && link.dataset.art) artEl.src = link.dataset.art;
     if (elapsedEl) elapsedEl.textContent = '0:00';
     if (durationEl) durationEl.textContent = link.dataset.duration || '0:00';
     if (scrub) { scrub.value = '0'; fill(scrub, 0); }
@@ -109,9 +114,10 @@ export function createPlayer(root) {
   }
 
   function setPlayIcon(isPlaying) {
-    if (!playBtn) return;
-    playBtn.setAttribute('aria-label', isPlaying ? 'Pause' : 'Play');
-    playBtn.classList.toggle('is-playing', isPlaying);
+    playBtns.forEach((btn) => {
+      btn.setAttribute('aria-label', isPlaying ? 'Pause' : 'Play');
+      btn.classList.toggle('is-playing', isPlaying);
+    });
   }
 }
 

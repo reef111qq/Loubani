@@ -187,10 +187,10 @@
         <!-- Each row links out to Spotify. These are other artists' recordings,
              so they are NOT hosted here — only the dock on the home page plays
              audio, and that plays Reef's own tracks.
-             REPLACE: paste each Spotify track URL into its href. -->
+             Each row opens the track on Spotify in a new tab. -->
         <ul class="spins reveal">
           <li class="spin">
-            <a class="spin__link" href="#REPLACE-spotify-url" rel="noopener">
+            <a class="spin__link" href="https://open.spotify.com/track/3D9McxgQZlf9OpnMYuSNFq" target="_blank" rel="noopener">
               <span class="spin__num">01</span>
               <img class="spin__art" src="media/listening/honey.jpg" alt="" width="96" height="96" loading="lazy" decoding="async">
               <span class="spin__text">
@@ -198,11 +198,11 @@
                 <span class="spin__artist">Ruby Haunt</span>
               </span>
               <span class="spin__out" aria-hidden="true">&#8599;</span>
-              <span class="vh">Open Honey by Ruby Haunt on Spotify</span>
+              <span class="vh">Open Honey by Ruby Haunt on Spotify (opens in a new tab)</span>
             </a>
           </li>
           <li class="spin">
-            <a class="spin__link" href="#REPLACE-spotify-url" rel="noopener">
+            <a class="spin__link" href="https://open.spotify.com/track/69rHKcrQpYGfToPThOV1UB" target="_blank" rel="noopener">
               <span class="spin__num">02</span>
               <img class="spin__art" src="media/listening/marianne.jpg" alt="" width="96" height="96" loading="lazy" decoding="async">
               <span class="spin__text">
@@ -210,11 +210,11 @@
                 <span class="spin__artist">Fontaines D.C.</span>
               </span>
               <span class="spin__out" aria-hidden="true">&#8599;</span>
-              <span class="vh">Open Marianne by Fontaines D.C. on Spotify</span>
+              <span class="vh">Open Marianne by Fontaines D.C. on Spotify (opens in a new tab)</span>
             </a>
           </li>
           <li class="spin">
-            <a class="spin__link" href="#REPLACE-spotify-url" rel="noopener">
+            <a class="spin__link" href="https://open.spotify.com/track/2LTRSoho4n35jXJBYZrpwp" target="_blank" rel="noopener">
               <span class="spin__num">03</span>
               <img class="spin__art" src="media/listening/all-of-my-friends.jpg" alt="" width="96" height="96" loading="lazy" decoding="async">
               <span class="spin__text">
@@ -222,11 +222,11 @@
                 <span class="spin__artist">Jack Harlow</span>
               </span>
               <span class="spin__out" aria-hidden="true">&#8599;</span>
-              <span class="vh">Open All of My Friends by Jack Harlow on Spotify</span>
+              <span class="vh">Open All of My Friends by Jack Harlow on Spotify (opens in a new tab)</span>
             </a>
           </li>
           <li class="spin">
-            <a class="spin__link" href="#REPLACE-spotify-url" rel="noopener">
+            <a class="spin__link" href="https://open.spotify.com/track/1BLOVHYYlH4JUHQGcpt75R" target="_blank" rel="noopener">
               <span class="spin__num">04</span>
               <img class="spin__art" src="media/listening/ode-to-the-mets.jpg" alt="" width="96" height="96" loading="lazy" decoding="async">
               <span class="spin__text">
@@ -234,11 +234,11 @@
                 <span class="spin__artist">The Strokes</span>
               </span>
               <span class="spin__out" aria-hidden="true">&#8599;</span>
-              <span class="vh">Open Ode to the Mets by The Strokes on Spotify</span>
+              <span class="vh">Open Ode to the Mets by The Strokes on Spotify (opens in a new tab)</span>
             </a>
           </li>
           <li class="spin">
-            <a class="spin__link" href="#REPLACE-spotify-url" rel="noopener">
+            <a class="spin__link" href="https://open.spotify.com/track/0LutvoC2HqCfnaRSjrhtzo" target="_blank" rel="noopener">
               <span class="spin__num">05</span>
               <img class="spin__art" src="media/listening/walking-away.jpg" alt="" width="96" height="96" loading="lazy" decoding="async">
               <span class="spin__text">
@@ -246,7 +246,7 @@
                 <span class="spin__artist">Justin Bieber</span>
               </span>
               <span class="spin__out" aria-hidden="true">&#8599;</span>
-              <span class="vh">Open Walking Away by Justin Bieber on Spotify</span>
+              <span class="vh">Open Walking Away by Justin Bieber on Spotify (opens in a new tab)</span>
             </a>
           </li>
         </ul>
@@ -254,50 +254,6 @@
     </div>
   </section>
 
-  <hr class="rule">
-
-  <!-- ===== BANDLAB ========================================================
-       Each embed starts as a still card and only loads the real BandLab
-       iframe when someone clicks it — that keeps the page fast and runs no
-       third-party code for visitors who never press play.
-
-       TO ADD ONE: open the track on BandLab, Share > Embed, and copy the
-       src URL out of the code it gives you into data-embed below.
-       ====================================================================== -->
-  <section class="wrap section" aria-labelledby="bandlab-heading">
-    <div class="section-head">
-      <span class="section-head__eyebrow">On BandLab</span>
-      <h2 id="bandlab-heading">Full tracks</h2>
-    </div>
-
-    <div class="embeds">
-      <button type="button" class="facade reveal" data-facade
-              data-embed="https://www.bandlab.com/embed/?id=REPLACE-WITH-TRACK-ID"
-              data-title="BandLab player: Track name">
-        <img src="media/placeholder-art.svg" alt="" width="200" height="200" loading="lazy" decoding="async">
-        <span class="facade__play" aria-hidden="true">
-          <svg viewBox="0 0 24 24"><path d="M7 5l12 7-12 7z"/></svg>
-        </span>
-        <span class="facade__overlay">
-          <span class="facade__meta">BandLab</span>
-          <span class="facade__title">Track name</span>
-        </span>
-      </button>
-
-      <button type="button" class="facade reveal" data-facade
-              data-embed="https://www.bandlab.com/embed/?id=REPLACE-WITH-TRACK-ID"
-              data-title="BandLab player: Track name">
-        <img src="media/placeholder-art.svg" alt="" width="200" height="200" loading="lazy" decoding="async">
-        <span class="facade__play" aria-hidden="true">
-          <svg viewBox="0 0 24 24"><path d="M7 5l12 7-12 7z"/></svg>
-        </span>
-        <span class="facade__overlay">
-          <span class="facade__meta">BandLab</span>
-          <span class="facade__title">Track name</span>
-        </span>
-      </button>
-    </div>
-  </section>
 </main>
 
 <footer class="foot">

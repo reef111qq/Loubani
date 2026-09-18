@@ -421,25 +421,30 @@
 </main>
 
 <!-- ===== DOCK ============================================================
-     The persistent player, bottom-left. Plays YOUR OWN tracks from /audio.
+     The floating player, bottom-left. Plays Reef's own tracks from /audio.
 
-     The list below is ordinary links to mp3 files, so with JavaScript off
-     it degrades to a working list of downloads. JS upgrades it in place.
+     The list is ordinary links to audio files, so with JavaScript off it
+     degrades to a working list of downloads. JS upgrades it in place.
 
-     TO ADD A TRACK: drop the file into /audio and copy one <li>. Keep the
-     list here and the one on music.html in step with each other.
+     TO ADD A TRACK: drop the file into /audio and copy one <li>. Keep this
+     list and the deck list on music.html in step with each other.
+     Add data-art="media/covers/name.jpg" to a track to give it its own
+     cover; without one it falls back to the default art below.
      ====================================================================== -->
 <aside class="dock" data-dock aria-label="Music player">
+
   <div class="dock__bar">
-    <button type="button" class="dock__play" data-toggle aria-label="Play">
+    <img class="dock__art" data-art src="media/track-art-default.svg" alt="" width="120" height="120" decoding="async">
+
+    <span class="dock__meta">
+      <span class="dock__now" data-now aria-live="polite">&mdash;</span>
+      <span class="dock__label">Reef Loubani</span>
+    </span>
+
+    <button type="button" class="dock__play dock__play--sm" data-toggle aria-label="Play">
       <svg viewBox="0 0 24 24" aria-hidden="true" data-icon-play><path d="M7 5l12 7-12 7z"/></svg>
       <svg viewBox="0 0 24 24" aria-hidden="true" data-icon-pause><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/></svg>
     </button>
-
-    <span class="dock__meta">
-      <span class="dock__label">My tracks</span>
-      <span class="dock__now" data-now aria-live="polite">&mdash;</span>
-    </span>
 
     <button type="button" class="dock__expand" data-dock-toggle
             aria-expanded="false" aria-controls="dock-panel" aria-label="Expand player">
@@ -447,35 +452,55 @@
     </button>
   </div>
 
-  <div class="dock__panel" id="dock-panel" data-dock-panel hidden>
-    <div class="dock__scrubrow">
-      <span data-elapsed>0:00</span>
-      <input type="range" data-scrub min="0" max="100" step="0.1" value="0" aria-label="Seek within track">
-      <span data-duration>0:00</span>
+  <div class="dock__panel" id="dock-panel" data-dock-panel>
+    <div>
+      <div class="dock__panel-inner">
+
+        <div class="dock__scrubrow">
+          <span data-elapsed>0:00</span>
+          <input type="range" data-scrub min="0" max="100" step="0.1" value="0" aria-label="Seek within track">
+          <span data-duration>0:00</span>
+        </div>
+
+        <div class="dock__transport">
+          <button type="button" class="dock__step" data-prev aria-label="Previous track">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6h2v12H6zM20 6l-10 6 10 6z"/></svg>
+          </button>
+
+          <button type="button" class="dock__play dock__play--lg" data-toggle aria-label="Play">
+            <svg viewBox="0 0 24 24" aria-hidden="true" data-icon-play><path d="M7 5l12 7-12 7z"/></svg>
+            <svg viewBox="0 0 24 24" aria-hidden="true" data-icon-pause><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/></svg>
+          </button>
+
+          <button type="button" class="dock__step" data-next aria-label="Next track">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 6h2v12h-2zM4 6l10 6-10 6z"/></svg>
+          </button>
+        </div>
+
+        <ol class="dock__list">
+          <li><a class="dock__track" href="audio/afterglow-demo.m4a" data-track data-title="Afterglow (demo)" data-duration="2:54">
+            <span class="dock__track-title">Afterglow (demo)</span><span class="dock__track-time">2:54</span></a></li>
+          <li><a class="dock__track" href="audio/chicas.m4a" data-track data-title="Chicas" data-duration="2:25">
+            <span class="dock__track-title">Chicas</span><span class="dock__track-time">2:25</span></a></li>
+          <li><a class="dock__track" href="audio/dystopian.mp3" data-track data-title="Dystopian" data-duration="3:16">
+            <span class="dock__track-title">Dystopian</span><span class="dock__track-time">3:16</span></a></li>
+          <li><a class="dock__track" href="audio/galactic.m4a" data-track data-title="Galactic" data-duration="2:42">
+            <span class="dock__track-title">Galactic</span><span class="dock__track-time">2:42</span></a></li>
+          <li><a class="dock__track" href="audio/hallelujah.m4a" data-track data-title="Hallelujah" data-duration="3:05">
+            <span class="dock__track-title">Hallelujah</span><span class="dock__track-time">3:05</span></a></li>
+          <li><a class="dock__track" href="audio/moonlight.m4a" data-track data-title="Moonlight" data-duration="3:54">
+            <span class="dock__track-title">Moonlight</span><span class="dock__track-time">3:54</span></a></li>
+          <li><a class="dock__track" href="audio/pluto.m4a" data-track data-title="Pluto" data-duration="2:05">
+            <span class="dock__track-title">Pluto</span><span class="dock__track-time">2:05</span></a></li>
+          <li><a class="dock__track" href="audio/portals.m4a" data-track data-title="Portals" data-duration="3:11">
+            <span class="dock__track-title">Portals</span><span class="dock__track-time">3:11</span></a></li>
+          <li><a class="dock__track" href="audio/saber.m4a" data-track data-title="Saber" data-duration="4:00">
+            <span class="dock__track-title">Saber</span><span class="dock__track-time">4:00</span></a></li>
+        </ol>
+
+        <p class="dock__empty" data-empty hidden>No tracks yet. Drop audio files into /audio.</p>
+      </div>
     </div>
-
-    <ol class="dock__list">
-      <li><a class="dock__track" href="audio/afterglow-demo.m4a" data-track data-title="Afterglow (demo)" data-duration="2:54">
-        <span class="dock__track-title">Afterglow (demo)</span><span class="dock__track-time">2:54</span></a></li>
-      <li><a class="dock__track" href="audio/chicas.m4a" data-track data-title="Chicas" data-duration="2:25">
-        <span class="dock__track-title">Chicas</span><span class="dock__track-time">2:25</span></a></li>
-      <li><a class="dock__track" href="audio/dystopian.mp3" data-track data-title="Dystopian" data-duration="3:16">
-        <span class="dock__track-title">Dystopian</span><span class="dock__track-time">3:16</span></a></li>
-      <li><a class="dock__track" href="audio/galactic.m4a" data-track data-title="Galactic" data-duration="2:42">
-        <span class="dock__track-title">Galactic</span><span class="dock__track-time">2:42</span></a></li>
-      <li><a class="dock__track" href="audio/hallelujah.m4a" data-track data-title="Hallelujah" data-duration="3:05">
-        <span class="dock__track-title">Hallelujah</span><span class="dock__track-time">3:05</span></a></li>
-      <li><a class="dock__track" href="audio/moonlight.m4a" data-track data-title="Moonlight" data-duration="3:54">
-        <span class="dock__track-title">Moonlight</span><span class="dock__track-time">3:54</span></a></li>
-      <li><a class="dock__track" href="audio/pluto.m4a" data-track data-title="Pluto" data-duration="2:05">
-        <span class="dock__track-title">Pluto</span><span class="dock__track-time">2:05</span></a></li>
-      <li><a class="dock__track" href="audio/portals.m4a" data-track data-title="Portals" data-duration="3:11">
-        <span class="dock__track-title">Portals</span><span class="dock__track-time">3:11</span></a></li>
-      <li><a class="dock__track" href="audio/saber.m4a" data-track data-title="Saber" data-duration="4:00">
-        <span class="dock__track-title">Saber</span><span class="dock__track-time">4:00</span></a></li>
-    </ol>
-
-    <p class="dock__empty" data-empty hidden>No tracks yet. Drop mp3s into /audio.</p>
   </div>
 
   <audio data-audio preload="none"></audio>
