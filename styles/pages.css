@@ -305,3 +305,228 @@ main { position: relative; z-index: 1; view-transition-name: page; }
 }
 .slab p { margin-inline: auto; }
 .slab .btn { justify-self: center; }
+
+/* ==========================================================================
+   MOVIES — three lists, three treatments, so the page doesn't read as the
+   same grid repeated: a taped poster wall, a dated diary, a paper list.
+   ========================================================================== */
+.section--flush-top { padding-top: 0; }
+.section--intro { padding-bottom: var(--space-xl); }
+
+/* --- All-time favourites: posters taped to a wall ------------------------- */
+.poster-wall {
+  list-style: none;
+  margin: 0;
+  padding: var(--space-s) 0 0;
+  display: grid;
+  gap: var(--space-xl) var(--space-l);
+  /* 2, then 3, then 6 across — every step divides 6 evenly, so six
+     favourites always make whole rows instead of leaving one hanging.
+     If the list ever grows, keep it to a multiple of 6 (or 3). */
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+@media (min-width: 640px)  { .poster-wall { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (min-width: 1100px) { .poster-wall { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: var(--space-xl) var(--space-m); } }
+
+.poster {
+  transform: rotate(var(--rot, 0deg));
+  transition: transform var(--dur) var(--ease);
+}
+.poster:hover { transform: rotate(0deg) translateY(-4px); }
+/* .reveal sets its own transform while fading in; let the tilt win after. */
+.poster.reveal.is-in { transform: rotate(var(--rot, 0deg)); }
+.poster.reveal.is-in:hover { transform: rotate(0deg) translateY(-4px); }
+
+.poster__art {
+  position: relative;
+  aspect-ratio: 2 / 3;
+  border: 5px solid var(--paper);
+  box-shadow: var(--shadow-print);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 12px;
+  color: var(--ink);
+  background: var(--vermilion);
+}
+.poster__art--vermilion { background: var(--vermilion); }
+.poster__art--cobalt    { background: var(--cobalt);    color: var(--paper); }
+.poster__art--gold      { background: var(--gold); }
+.poster__art--teal      { background: var(--teal); }
+.poster__art--orange    { background: var(--orange); }
+.poster__art--ink       { background: var(--ink-3);     color: var(--vermilion); }
+
+/* A real poster image, when added, sits over the typographic stand-in. */
+.poster__art img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+/* Halftone screen and a strip of tape, same as the clippings elsewhere. */
+.poster__art::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background-image: var(--halftone);
+  background-size: var(--halftone-size);
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+.poster::before {
+  content: "";
+  display: block;
+  width: 58px;
+  height: 22px;
+  margin: 0 auto -11px;
+  position: relative;
+  z-index: 3;
+  transform: rotate(-4deg);
+  background: rgba(239,230,208,0.3);
+  border-left: 1px dashed rgba(239,230,208,0.4);
+  border-right: 1px dashed rgba(239,230,208,0.4);
+}
+
+.poster__type {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 1rem + 1.6vw, 2.2rem);
+  line-height: 0.9;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+.poster__year {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: 0.2em;
+  margin-top: 0.4em;
+}
+
+.poster__title {
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0;
+  line-height: 1.3;
+  margin: var(--space-s) 0 0.2em;
+}
+.poster__meta {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: var(--step--2);
+  color: var(--paper-dim);
+  letter-spacing: 0.08em;
+}
+.poster__note { margin: 0; font-size: var(--step--1); color: var(--paper-dim); }
+
+/* --- Recently watched: a dated diary ------------------------------------- */
+.diary {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 2px solid var(--paper);
+}
+.diary__row {
+  display: grid;
+  grid-template-columns: 4.2rem 1fr auto;
+  align-items: center;
+  gap: var(--space-m);
+  padding: var(--space-s) 0;
+  border-bottom: 1px solid rgba(239,230,208,0.14);
+}
+.diary__date {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1;
+  padding: 0.45em 0;
+  border: 2px solid var(--vermilion);
+}
+.diary__mon {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--vermilion);
+}
+.diary__day {
+  font-family: var(--font-display);
+  font-size: 1.7rem;
+  color: var(--paper);
+  margin-top: 0.1em;
+}
+.diary__film { font-size: var(--step-1); font-weight: 500; min-width: 0; }
+.diary__year {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  color: var(--paper-dim);
+  letter-spacing: 0.08em;
+  margin-left: 0.4em;
+}
+.diary__rating {
+  color: var(--gold);
+  letter-spacing: 0.12em;
+  font-size: var(--step-0);
+  white-space: nowrap;
+}
+.diary__off { color: rgba(239,230,208,0.2); }
+
+@media (max-width: 520px) {
+  .diary__row { grid-template-columns: 3.6rem 1fr; row-gap: 0.3em; }
+  .diary__rating { grid-column: 2; }
+}
+
+/* --- Watchlist: printed on cream ----------------------------------------
+   The one light surface on the site, for contrast with the two lists
+   above it. Ink on paper measures 15.9:1.
+   ------------------------------------------------------------------------ */
+.watch {
+  background: var(--paper);
+  color: var(--ink);
+  box-shadow: var(--shadow-lift);
+  padding: clamp(var(--space-m), 4vw, var(--space-xl));
+  transform: rotate(-0.6deg);
+  position: relative;
+}
+.watch::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle at center, rgba(12,10,11,0.08) 1px, transparent 1.4px);
+  background-size: var(--halftone-size);
+}
+.watch__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  columns: 2 280px;
+  column-gap: var(--space-xl);
+}
+.watch__item {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-xs);
+  padding: 0.65em 0;
+  border-bottom: 1px dashed rgba(12,10,11,0.28);
+  break-inside: avoid;
+}
+.watch__num {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  color: var(--vermilion-on-paper);
+  font-weight: 600;
+  flex: none;
+}
+.watch__film { flex: 1; font-weight: 600; }
+.watch__year {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  color: rgba(12,10,11,0.6);
+  flex: none;
+}

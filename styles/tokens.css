@@ -23,6 +23,10 @@
      keeps its force.
      ------------------------------------------------------------------- */
   --vermilion:  #EF3B21;   /* the dominant red */
+  --vermilion-on-paper: #B82A17;  /* the red for text ON --paper. Plain
+                                     --vermilion measures only 3.2:1 on cream;
+                                     this measures 5.0:1. Red ink on paper
+                                     prints darker than red lit on black anyway. */
   --orange:     #F4761E;   /* bar counter, gradient ribbons */
   --gold:       #F5B92B;   /* the Hendrix yellow */
   --cobalt:     #2F4BE8;   /* knight blue — FILLS AND BLOCKS ONLY, see below */
