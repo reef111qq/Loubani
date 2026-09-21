@@ -313,29 +313,20 @@ main { position: relative; z-index: 1; view-transition-name: page; }
 .section--flush-top { padding-top: 0; }
 .section--intro { padding-bottom: var(--space-xl); }
 
-/* --- All-time favourites: poster beside the reason --------------------
-   Two to a row on wide screens, one below 860px. The poster keeps the tape,
-   tilt and halftone of the clippings elsewhere on the site; the text beside
-   it stays straight so it reads cleanly.
+/* --- All-time favourites: a poster wall ---------------------------------
+   Steps 2 / 3 / 6 across. Every step divides six, so six favourites always
+   make whole rows. If the list grows, keep it to a multiple of 3 or 6.
    ------------------------------------------------------------------------ */
 .favs {
   list-style: none;
   margin: 0;
   padding: var(--space-s) 0 0;
   display: grid;
-  gap: var(--space-xl);
-  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-xl) var(--space-m);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
-@media (min-width: 860px) {
-  .favs { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-2xl); }
-}
-
-.fav {
-  display: grid;
-  grid-template-columns: minmax(104px, 38%) minmax(0, 1fr);
-  gap: var(--space-m);
-  align-items: start;
-}
+@media (min-width: 640px)  { .favs { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-xl) var(--space-l); } }
+@media (min-width: 1100px) { .favs { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: var(--space-xl) var(--space-m); } }
 
 .fav__poster {
   position: relative;
@@ -352,8 +343,7 @@ main { position: relative; z-index: 1; view-transition-name: page; }
 }
 .fav__poster img { width: 100%; height: 100%; object-fit: cover; }
 
-/* Halftone screen over the print. */
-.fav__poster::after {
+.fav__poster::after {          /* halftone screen */
   content: "";
   position: absolute;
   inset: 0;
@@ -362,25 +352,24 @@ main { position: relative; z-index: 1; view-transition-name: page; }
   mix-blend-mode: overlay;
   pointer-events: none;
 }
-/* A strip of tape holding it up. */
-.fav__poster::before {
+.fav__poster::before {         /* tape */
   content: "";
   position: absolute;
   top: -14px;
   left: 50%;
   z-index: 2;
-  width: 56px;
-  height: 22px;
+  width: 52px;
+  height: 20px;
   transform: translateX(-50%) rotate(-5deg);
   background: rgba(239,230,208,0.3);
   border-left: 1px dashed rgba(239,230,208,0.4);
   border-right: 1px dashed rgba(239,230,208,0.4);
 }
 
-.fav__text { padding-top: var(--space-2xs); }
+.fav__text { padding-top: var(--space-s); }
 .fav__title {
-  font-size: clamp(1.35rem, 1rem + 1.1vw, 1.9rem);
-  line-height: 0.98;
+  font-size: clamp(1.05rem, 0.9rem + 0.5vw, 1.3rem);
+  line-height: 1;
   margin: 0 0 var(--space-2xs);
   overflow-wrap: break-word;
 }
@@ -392,13 +381,6 @@ main { position: relative; z-index: 1; view-transition-name: page; }
   color: var(--ink);
   background: var(--gold);
   padding: 0.2em 0.55em;
-  margin-bottom: var(--space-s);
-}
-.fav__note {
-  margin: 0;
-  color: var(--paper-dim);
-  font-size: var(--step-0);
-  line-height: 1.55;
 }
 
 /* --- Recently watched: a dated diary ------------------------------------- */
