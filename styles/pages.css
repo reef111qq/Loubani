@@ -313,116 +313,93 @@ main { position: relative; z-index: 1; view-transition-name: page; }
 .section--flush-top { padding-top: 0; }
 .section--intro { padding-bottom: var(--space-xl); }
 
-/* --- All-time favourites: posters taped to a wall ------------------------- */
-.poster-wall {
+/* --- All-time favourites: poster beside the reason --------------------
+   Two to a row on wide screens, one below 860px. The poster keeps the tape,
+   tilt and halftone of the clippings elsewhere on the site; the text beside
+   it stays straight so it reads cleanly.
+   ------------------------------------------------------------------------ */
+.favs {
   list-style: none;
   margin: 0;
   padding: var(--space-s) 0 0;
   display: grid;
-  gap: var(--space-xl) var(--space-l);
-  /* 2, then 3, then 6 across — every step divides 6 evenly, so six
-     favourites always make whole rows instead of leaving one hanging.
-     If the list ever grows, keep it to a multiple of 6 (or 3). */
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-xl);
+  grid-template-columns: minmax(0, 1fr);
 }
-@media (min-width: 640px)  { .poster-wall { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-@media (min-width: 1100px) { .poster-wall { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: var(--space-xl) var(--space-m); } }
-
-.poster {
-  transform: rotate(var(--rot, 0deg));
-  transition: transform var(--dur) var(--ease);
+@media (min-width: 860px) {
+  .favs { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-2xl); }
 }
-.poster:hover { transform: rotate(0deg) translateY(-4px); }
-/* .reveal sets its own transform while fading in; let the tilt win after. */
-.poster.reveal.is-in { transform: rotate(var(--rot, 0deg)); }
-.poster.reveal.is-in:hover { transform: rotate(0deg) translateY(-4px); }
 
-.poster__art {
+.fav {
+  display: grid;
+  grid-template-columns: minmax(104px, 38%) minmax(0, 1fr);
+  gap: var(--space-m);
+  align-items: start;
+}
+
+.fav__poster {
   position: relative;
   aspect-ratio: 2 / 3;
   border: 5px solid var(--paper);
+  background: var(--ink-3);
   box-shadow: var(--shadow-print);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 12px;
-  color: var(--ink);
-  background: var(--vermilion);
+  transform: rotate(var(--rot, 0deg));
+  transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
 }
-.poster__art--vermilion { background: var(--vermilion); }
-.poster__art--cobalt    { background: var(--cobalt);    color: var(--paper); }
-.poster__art--gold      { background: var(--gold); }
-.poster__art--teal      { background: var(--teal); }
-.poster__art--orange    { background: var(--orange); }
-.poster__art--ink       { background: var(--ink-3);     color: var(--vermilion); }
-
-/* A real poster image, when added, sits over the typographic stand-in. */
-.poster__art img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: 1;
+.fav:hover .fav__poster {
+  transform: rotate(0deg) translateY(-4px);
+  box-shadow: var(--shadow-lift);
 }
+.fav__poster img { width: 100%; height: 100%; object-fit: cover; }
 
-/* Halftone screen and a strip of tape, same as the clippings elsewhere. */
-.poster__art::after {
+/* Halftone screen over the print. */
+.fav__poster::after {
   content: "";
   position: absolute;
   inset: 0;
-  z-index: 2;
   background-image: var(--halftone);
   background-size: var(--halftone-size);
   mix-blend-mode: overlay;
   pointer-events: none;
 }
-.poster::before {
+/* A strip of tape holding it up. */
+.fav__poster::before {
   content: "";
-  display: block;
-  width: 58px;
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  z-index: 2;
+  width: 56px;
   height: 22px;
-  margin: 0 auto -11px;
-  position: relative;
-  z-index: 3;
-  transform: rotate(-4deg);
+  transform: translateX(-50%) rotate(-5deg);
   background: rgba(239,230,208,0.3);
   border-left: 1px dashed rgba(239,230,208,0.4);
   border-right: 1px dashed rgba(239,230,208,0.4);
 }
 
-.poster__type {
-  font-family: var(--font-display);
-  font-size: clamp(1.5rem, 1rem + 1.6vw, 2.2rem);
-  line-height: 0.9;
-  text-transform: uppercase;
-  overflow-wrap: anywhere;
+.fav__text { padding-top: var(--space-2xs); }
+.fav__title {
+  font-size: clamp(1.35rem, 1rem + 1.1vw, 1.9rem);
+  line-height: 0.98;
+  margin: 0 0 var(--space-2xs);
+  overflow-wrap: break-word;
 }
-.poster__year {
+.fav__year {
+  display: inline-block;
   font-family: var(--font-mono);
   font-size: var(--step--2);
   letter-spacing: 0.2em;
-  margin-top: 0.4em;
+  color: var(--ink);
+  background: var(--gold);
+  padding: 0.2em 0.55em;
+  margin-bottom: var(--space-s);
 }
-
-.poster__title {
-  font-family: var(--font-body);
-  font-size: var(--step-0);
-  font-weight: 600;
-  text-transform: none;
-  letter-spacing: 0;
-  line-height: 1.3;
-  margin: var(--space-s) 0 0.2em;
-}
-.poster__meta {
-  font-family: var(--font-mono);
-  font-weight: 400;
-  font-size: var(--step--2);
+.fav__note {
+  margin: 0;
   color: var(--paper-dim);
-  letter-spacing: 0.08em;
+  font-size: var(--step-0);
+  line-height: 1.55;
 }
-.poster__note { margin: 0; font-size: var(--step--1); color: var(--paper-dim); }
 
 /* --- Recently watched: a dated diary ------------------------------------- */
 .diary {

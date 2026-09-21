@@ -53,87 +53,78 @@
   </section>
 
   <!-- ===== ALL-TIME FAVOURITES ============================================
-       Taped up like posters on a wall. Each one has a typographic stand-in
-       so the page looks finished before any real poster images exist.
+       Poster on the left, the reason on the right, two to a row.
+       Posters live in media/posters/ at about 420px wide — they're shown at
+       up to ~210px, so that covers a 2x screen.
+       The poster's alt is empty on purpose: the title sits right beside it,
+       so describing the image would just make a screen reader say it twice.
        ====================================================================== -->
   <section class="wrap section section--flush-top" aria-labelledby="favs-heading">
     <div class="section-head">
       <span class="section-head__eyebrow">01</span>
       <h2 id="favs-heading">All-time favourites</h2>
     </div>
-    <ul class="poster-wall">
-        <li class="poster reveal" style="--rot:-2.5deg;">
-          <!-- REPLACE: title, year and a one-line reason. To use the real poster,
-               save it to media/posters/ and uncomment the <img> — it covers the
-               typographic stand-in automatically. -->
-          <div class="poster__art poster__art--vermilion" aria-hidden="true">
-            <!-- <img src="media/posters/FILENAME.jpg" alt="" width="400" height="600" loading="lazy" decoding="async"> -->
-            <span class="poster__type">Film title</span>
-            <span class="poster__year">YYYY</span>
-          </div>
-          <h3 class="poster__title">Film title <span class="poster__meta">YYYY</span></h3>
-          <p class="poster__note">One line on why it&rsquo;s a favourite.</p>
-        </li>
-        <li class="poster reveal" style="--rot:1.8deg;">
-          <!-- REPLACE: title, year and a one-line reason. To use the real poster,
-               save it to media/posters/ and uncomment the <img> — it covers the
-               typographic stand-in automatically. -->
-          <div class="poster__art poster__art--cobalt" aria-hidden="true">
-            <!-- <img src="media/posters/FILENAME.jpg" alt="" width="400" height="600" loading="lazy" decoding="async"> -->
-            <span class="poster__type">Film title</span>
-            <span class="poster__year">YYYY</span>
-          </div>
-          <h3 class="poster__title">Film title <span class="poster__meta">YYYY</span></h3>
-          <p class="poster__note">One line on why it&rsquo;s a favourite.</p>
-        </li>
-        <li class="poster reveal" style="--rot:-1.2deg;">
-          <!-- REPLACE: title, year and a one-line reason. To use the real poster,
-               save it to media/posters/ and uncomment the <img> — it covers the
-               typographic stand-in automatically. -->
-          <div class="poster__art poster__art--gold" aria-hidden="true">
-            <!-- <img src="media/posters/FILENAME.jpg" alt="" width="400" height="600" loading="lazy" decoding="async"> -->
-            <span class="poster__type">Film title</span>
-            <span class="poster__year">YYYY</span>
-          </div>
-          <h3 class="poster__title">Film title <span class="poster__meta">YYYY</span></h3>
-          <p class="poster__note">One line on why it&rsquo;s a favourite.</p>
-        </li>
-        <li class="poster reveal" style="--rot:2.4deg;">
-          <!-- REPLACE: title, year and a one-line reason. To use the real poster,
-               save it to media/posters/ and uncomment the <img> — it covers the
-               typographic stand-in automatically. -->
-          <div class="poster__art poster__art--teal" aria-hidden="true">
-            <!-- <img src="media/posters/FILENAME.jpg" alt="" width="400" height="600" loading="lazy" decoding="async"> -->
-            <span class="poster__type">Film title</span>
-            <span class="poster__year">YYYY</span>
-          </div>
-          <h3 class="poster__title">Film title <span class="poster__meta">YYYY</span></h3>
-          <p class="poster__note">One line on why it&rsquo;s a favourite.</p>
-        </li>
-        <li class="poster reveal" style="--rot:-1.8deg;">
-          <!-- REPLACE: title, year and a one-line reason. To use the real poster,
-               save it to media/posters/ and uncomment the <img> — it covers the
-               typographic stand-in automatically. -->
-          <div class="poster__art poster__art--orange" aria-hidden="true">
-            <!-- <img src="media/posters/FILENAME.jpg" alt="" width="400" height="600" loading="lazy" decoding="async"> -->
-            <span class="poster__type">Film title</span>
-            <span class="poster__year">YYYY</span>
-          </div>
-          <h3 class="poster__title">Film title <span class="poster__meta">YYYY</span></h3>
-          <p class="poster__note">One line on why it&rsquo;s a favourite.</p>
-        </li>
-        <li class="poster reveal" style="--rot:1.2deg;">
-          <!-- REPLACE: title, year and a one-line reason. To use the real poster,
-               save it to media/posters/ and uncomment the <img> — it covers the
-               typographic stand-in automatically. -->
-          <div class="poster__art poster__art--ink" aria-hidden="true">
-            <!-- <img src="media/posters/FILENAME.jpg" alt="" width="400" height="600" loading="lazy" decoding="async"> -->
-            <span class="poster__type">Film title</span>
-            <span class="poster__year">YYYY</span>
-          </div>
-          <h3 class="poster__title">Film title <span class="poster__meta">YYYY</span></h3>
-          <p class="poster__note">One line on why it&rsquo;s a favourite.</p>
-        </li>
+    <ul class="favs">
+      <li class="fav reveal">
+        <div class="fav__poster" style="--rot:-2.4deg;">
+          <img src="media/posters/spider-verse.jpg" alt="" width="420" height="624" loading="lazy" decoding="async">
+        </div>
+        <div class="fav__text">
+          <h3 class="fav__title">Spider-Man: Across the Spider-Verse</h3>
+          <span class="fav__year">2023</span>
+          <p class="fav__note">I loved the visual creativity and music in the film.</p>
+        </div>
+      </li>
+      <li class="fav reveal">
+        <div class="fav__poster" style="--rot:1.8deg;">
+          <img src="media/posters/dead-poets-society.jpg" alt="" width="327" height="475" loading="lazy" decoding="async">
+        </div>
+        <div class="fav__text">
+          <h3 class="fav__title">Dead Poets Society</h3>
+          <span class="fav__year">1989</span>
+          <p class="fav__note">I really enjoyed the lesson of the film: to think outside the box, and that the values of &lsquo;being right&rsquo; may not always align with what you think is right.</p>
+        </div>
+      </li>
+      <li class="fav reveal">
+        <div class="fav__poster" style="--rot:-1.4deg;">
+          <img src="media/posters/12-angry-men.jpg" alt="" width="420" height="630" loading="lazy" decoding="async">
+        </div>
+        <div class="fav__text">
+          <h3 class="fav__title">12 Angry Men</h3>
+          <span class="fav__year">1957</span>
+          <p class="fav__note">I love how the architect defends his viewpoint and doesn&rsquo;t agree with the status quo just because it seems &lsquo;obvious&rsquo;.</p>
+        </div>
+      </li>
+      <li class="fav reveal">
+        <div class="fav__poster" style="--rot:2.2deg;">
+          <img src="media/posters/iron-man.jpg" alt="" width="420" height="621" loading="lazy" decoding="async">
+        </div>
+        <div class="fav__text">
+          <h3 class="fav__title">Iron Man</h3>
+          <span class="fav__year">2008</span>
+          <p class="fav__note">A classic childhood comfort movie. I like how mechanical it feels and how it shows off Tony Stark&rsquo;s brilliance &mdash; especially now that artificial intelligence is starting to replicate JARVIS-level intelligence.</p>
+        </div>
+      </li>
+      <li class="fav reveal">
+        <div class="fav__poster" style="--rot:-1.8deg;">
+          <img src="media/posters/donnie-brasco.jpg" alt="" width="330" height="475" loading="lazy" decoding="async">
+        </div>
+        <div class="fav__text">
+          <h3 class="fav__title">Donnie Brasco</h3>
+          <span class="fav__year">1997</span>
+          <p class="fav__note">The acting was pristine, and I loved watching Donnie himself navigate the challenge of what he believes to be the correct path.</p>
+        </div>
+      </li>
+      <li class="fav reveal">
+        <div class="fav__poster" style="--rot:1.4deg;">
+          <img src="media/posters/12-monkeys.jpg" alt="" width="420" height="625" loading="lazy" decoding="async">
+        </div>
+        <div class="fav__text">
+          <h3 class="fav__title">12 Monkeys</h3>
+          <span class="fav__year">1995</span>
+          <p class="fav__note">The sci-fi plot set in the future, paired with the mind-bending twist at the end, has you questioning your own judgement.</p>
+        </div>
+      </li>
     </ul>
   </section>
 
