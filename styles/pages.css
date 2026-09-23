@@ -489,3 +489,101 @@ main { position: relative; z-index: 1; view-transition-name: page; }
   color: rgba(12,10,11,0.6);
   flex: none;
 }
+
+/* ==========================================================================
+   BOOKS — a shelf of typographic covers.
+
+   Five is a prime number, so no column count divides it evenly. A centred
+   flex row handles that better than a grid: five sit in one row on desktop,
+   and when they wrap the short row centres itself instead of hanging off
+   to one side.
+   ========================================================================== */
+.shelf {
+  list-style: none;
+  margin: 0;
+  padding: var(--space-s) 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-xl) var(--space-l);
+}
+.book { flex: 0 1 clamp(132px, 16vw, 186px); }
+
+.book__cover {
+  position: relative;
+  aspect-ratio: 2 / 3;
+  border: 5px solid var(--paper);
+  box-shadow: var(--shadow-print);
+  transform: rotate(var(--rot, 0deg));
+  transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 14px 12px;
+  overflow: hidden;
+}
+.book:hover .book__cover {
+  transform: rotate(0deg) translateY(-4px);
+  box-shadow: var(--shadow-lift);
+}
+
+/* Each ground is paired with a text colour that passes even at the small
+   size of the author line: ink-3/vermilion 5.1, gold/ink 11.2,
+   cobalt/paper 5.1, orange/ink 7.0, paper/ink 15.9. */
+.book__cover--ink    { background: var(--ink-3); color: var(--vermilion); }
+.book__cover--gold   { background: var(--gold);   color: var(--ink); }
+.book__cover--cobalt { background: var(--cobalt); color: var(--paper); }
+.book__cover--orange { background: var(--orange); color: var(--ink); }
+.book__cover--paper  { background: var(--paper);  color: var(--ink); }
+
+.book__cover-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 0.8rem + 1.1vw, 1.65rem);
+  line-height: 0.92;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+.book__cover-author {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  border-top: 1px solid currentColor;
+  padding-top: 0.5em;
+  opacity: 0.85;
+}
+
+.book__cover::after {          /* halftone screen, as everywhere else */
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--halftone);
+  background-size: var(--halftone-size);
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+/* The paper cover is light, so the dark-on-light halftone needs inverting. */
+.book__cover--paper::after {
+  background-image: radial-gradient(circle at center, rgba(12,10,11,0.09) 1px, transparent 1.4px);
+  mix-blend-mode: normal;
+}
+
+.book__text { padding-top: var(--space-s); }
+.book__title {
+  font-size: clamp(1rem, 0.9rem + 0.4vw, 1.2rem);
+  line-height: 1;
+  margin: 0 0 var(--space-3xs);
+  overflow-wrap: break-word;
+}
+.book__author {
+  margin: 0;
+  font-size: var(--step--1);
+  color: var(--paper-dim);
+}
+.book__year {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: 0.1em;
+  color: var(--gold);
+  margin-left: 0.3em;
+}
