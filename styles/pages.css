@@ -419,7 +419,7 @@ main { position: relative; z-index: 1; view-transition-name: page; }
   color: var(--paper);
   margin-top: 0.1em;
 }
-.diary__film { font-size: var(--step-1); font-weight: 500; min-width: 0; }
+.diary__title { font-size: var(--step-1); font-weight: 500; min-width: 0; }
 .diary__year {
   font-family: var(--font-mono);
   font-size: var(--step--2);
@@ -444,7 +444,7 @@ main { position: relative; z-index: 1; view-transition-name: page; }
    The one light surface on the site, for contrast with the two lists
    above it. Ink on paper measures 15.9:1.
    ------------------------------------------------------------------------ */
-.watch {
+.paperlist {
   background: var(--paper);
   color: var(--ink);
   box-shadow: var(--shadow-lift);
@@ -452,7 +452,7 @@ main { position: relative; z-index: 1; view-transition-name: page; }
   transform: rotate(-0.6deg);
   position: relative;
 }
-.watch::after {
+.paperlist::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -460,14 +460,14 @@ main { position: relative; z-index: 1; view-transition-name: page; }
   background-image: radial-gradient(circle at center, rgba(12,10,11,0.08) 1px, transparent 1.4px);
   background-size: var(--halftone-size);
 }
-.watch__list {
+.paperlist__list {
   list-style: none;
   margin: 0;
   padding: 0;
   columns: 2 280px;
   column-gap: var(--space-xl);
 }
-.watch__item {
+.paperlist__item {
   display: flex;
   align-items: baseline;
   gap: var(--space-xs);
@@ -475,15 +475,15 @@ main { position: relative; z-index: 1; view-transition-name: page; }
   border-bottom: 1px dashed rgba(12,10,11,0.28);
   break-inside: avoid;
 }
-.watch__num {
+.paperlist__num {
   font-family: var(--font-mono);
   font-size: var(--step--2);
   color: var(--vermilion-on-paper);
   font-weight: 600;
   flex: none;
 }
-.watch__film { flex: 1; font-weight: 600; }
-.watch__year {
+.paperlist__name { flex: 1; font-weight: 600; }
+.paperlist__meta {
   font-family: var(--font-mono);
   font-size: var(--step--2);
   color: rgba(12,10,11,0.6);
@@ -505,53 +505,27 @@ main { position: relative; z-index: 1; view-transition-name: page; }
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  align-items: flex-end;   /* covers stand on a common line, tops ragged */
   gap: var(--space-xl) var(--space-l);
 }
 .book { flex: 0 1 clamp(132px, 16vw, 186px); }
 
 .book__cover {
   position: relative;
-  aspect-ratio: 2 / 3;
   border: 5px solid var(--paper);
+  background: var(--ink-3);
   box-shadow: var(--shadow-print);
   transform: rotate(var(--rot, 0deg));
   transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 14px 12px;
-  overflow: hidden;
+  font-size: 0;          /* no baseline gap under the image */
 }
 .book:hover .book__cover {
   transform: rotate(0deg) translateY(-4px);
   box-shadow: var(--shadow-lift);
 }
-
-/* Each ground is paired with a text colour that passes even at the small
-   size of the author line: ink-3/vermilion 5.1, gold/ink 11.2,
-   cobalt/paper 5.1, orange/ink 7.0, paper/ink 15.9. */
-.book__cover--ink    { background: var(--ink-3); color: var(--vermilion); }
-.book__cover--gold   { background: var(--gold);   color: var(--ink); }
-.book__cover--cobalt { background: var(--cobalt); color: var(--paper); }
-.book__cover--orange { background: var(--orange); color: var(--ink); }
-.book__cover--paper  { background: var(--paper);  color: var(--ink); }
-
-.book__cover-title {
-  font-family: var(--font-display);
-  font-size: clamp(1.15rem, 0.8rem + 1.1vw, 1.65rem);
-  line-height: 0.92;
-  text-transform: uppercase;
-  overflow-wrap: anywhere;
-}
-.book__cover-author {
-  font-family: var(--font-mono);
-  font-size: 0.6rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  border-top: 1px solid currentColor;
-  padding-top: 0.5em;
-  opacity: 0.85;
-}
+/* No fixed aspect-ratio and no object-fit: each cover keeps its own shape.
+   width/height on the <img> still reserve the right space before it loads. */
+.book__cover img { width: 100%; height: auto; display: block; }
 
 .book__cover::after {          /* halftone screen, as everywhere else */
   content: "";
@@ -561,11 +535,6 @@ main { position: relative; z-index: 1; view-transition-name: page; }
   background-size: var(--halftone-size);
   mix-blend-mode: overlay;
   pointer-events: none;
-}
-/* The paper cover is light, so the dark-on-light halftone needs inverting. */
-.book__cover--paper::after {
-  background-image: radial-gradient(circle at center, rgba(12,10,11,0.09) 1px, transparent 1.4px);
-  mix-blend-mode: normal;
 }
 
 .book__text { padding-top: var(--space-s); }

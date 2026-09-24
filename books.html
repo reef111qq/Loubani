@@ -53,9 +53,12 @@
   </section>
 
   <!-- ===== ALL-TIME FAVOURITES ============================================
-       The covers here are set, not scanned: each one is drawn with type on a
-       flat ground, so the shelf looks designed rather than unfinished. Each
-       is aria-hidden because the title and author sit right underneath.
+       Covers keep their own proportions instead of being forced into one
+       box — book covers vary a lot, and cropping them to match would cut
+       the titles off. They line up along the bottom instead, like books on
+       a shelf. Covers live in media/covers/ at about 380px wide, twice the
+       186px they display at.
+       Alt is empty on purpose: the title sits directly underneath.
        ====================================================================== -->
   <section class="wrap section section--flush-top" aria-labelledby="fav-books-heading">
     <div class="section-head">
@@ -64,11 +67,8 @@
     </div>
     <ul class="shelf">
       <li class="book reveal">
-        <!-- To use a real cover instead, save it to media/covers/ and put an
-             <img> inside .book__cover — it covers the typographic one. -->
-        <div class="book__cover book__cover--ink" style="--rot:-2.2deg;" aria-hidden="true">
-          <span class="book__cover-title">1984</span>
-          <span class="book__cover-author">George Orwell</span>
+        <div class="book__cover" style="--rot:-2.2deg;">
+          <img src="media/covers/1984.jpg" alt="" width="223" height="400" loading="lazy" decoding="async">
         </div>
         <div class="book__text">
           <h3 class="book__title">1984</h3>
@@ -76,11 +76,8 @@
         </div>
       </li>
       <li class="book reveal">
-        <!-- To use a real cover instead, save it to media/covers/ and put an
-             <img> inside .book__cover — it covers the typographic one. -->
-        <div class="book__cover book__cover--gold" style="--rot:1.6deg;" aria-hidden="true">
-          <span class="book__cover-title">The Alchemist</span>
-          <span class="book__cover-author">Paulo Coelho</span>
+        <div class="book__cover" style="--rot:1.6deg;">
+          <img src="media/covers/the-alchemist.jpg" alt="" width="380" height="575" loading="lazy" decoding="async">
         </div>
         <div class="book__text">
           <h3 class="book__title">The Alchemist</h3>
@@ -88,11 +85,8 @@
         </div>
       </li>
       <li class="book reveal">
-        <!-- To use a real cover instead, save it to media/covers/ and put an
-             <img> inside .book__cover — it covers the typographic one. -->
-        <div class="book__cover book__cover--cobalt" style="--rot:-1.5deg;" aria-hidden="true">
-          <span class="book__cover-title">The Little Prince</span>
-          <span class="book__cover-author">Antoine de Saint-Exup&eacute;ry</span>
+        <div class="book__cover" style="--rot:-1.5deg;">
+          <img src="media/covers/the-little-prince.jpg" alt="" width="380" height="486" loading="lazy" decoding="async">
         </div>
         <div class="book__text">
           <h3 class="book__title">The Little Prince</h3>
@@ -100,11 +94,8 @@
         </div>
       </li>
       <li class="book reveal">
-        <!-- To use a real cover instead, save it to media/covers/ and put an
-             <img> inside .book__cover — it covers the typographic one. -->
-        <div class="book__cover book__cover--orange" style="--rot:2.0deg;" aria-hidden="true">
-          <span class="book__cover-title">To Kill a Mockingbird</span>
-          <span class="book__cover-author">Harper Lee</span>
+        <div class="book__cover" style="--rot:2.0deg;">
+          <img src="media/covers/to-kill-a-mockingbird.jpg" alt="" width="380" height="628" loading="lazy" decoding="async">
         </div>
         <div class="book__text">
           <h3 class="book__title">To Kill a Mockingbird</h3>
@@ -112,11 +103,8 @@
         </div>
       </li>
       <li class="book reveal">
-        <!-- To use a real cover instead, save it to media/covers/ and put an
-             <img> inside .book__cover — it covers the typographic one. -->
-        <div class="book__cover book__cover--paper" style="--rot:-1.8deg;" aria-hidden="true">
-          <span class="book__cover-title">Leonardo da Vinci: The Complete Drawings</span>
-          <span class="book__cover-author">Frank Z&ouml;llner &amp; Johannes Nathan</span>
+        <div class="book__cover" style="--rot:-1.8deg;">
+          <img src="media/covers/leonardo-da-vinci.jpg" alt="" width="380" height="507" loading="lazy" decoding="async">
         </div>
         <div class="book__text">
           <h3 class="book__title">Leonardo da Vinci: The Complete Drawings</h3>
@@ -124,6 +112,69 @@
         </div>
       </li>
     </ul>
+  </section>
+
+  <hr class="rule">
+
+  <!-- ===== RECENTLY READ =================================================
+       Newest first. Keep datetime as YYYY-MM-DD so browsers and search
+       engines read the date properly. Rating: five stars, with the ones not
+       earned wrapped in <span class="diary__off">. Update aria-label to match.
+       ====================================================================== -->
+  <section class="wrap section" aria-labelledby="recent-books-heading">
+    <div class="section-head">
+      <span class="section-head__eyebrow">02</span>
+      <h2 id="recent-books-heading">Recently read</h2>
+    </div>
+    <ol class="diary">
+        <li class="diary__row reveal">
+          <time class="diary__date" datetime="2026-09-16"><span class="diary__mon">Sep</span><span class="diary__day">16</span></time>
+          <span class="diary__title">Book title <span class="diary__year">Author</span></span>
+          <span class="diary__rating" role="img" aria-label="Rated 4 out of 5">&#9733;&#9733;&#9733;&#9733;<span class="diary__off">&#9733;</span></span>
+        </li>
+        <li class="diary__row reveal">
+          <time class="diary__date" datetime="2026-09-04"><span class="diary__mon">Sep</span><span class="diary__day">04</span></time>
+          <span class="diary__title">Book title <span class="diary__year">Author</span></span>
+          <span class="diary__rating" role="img" aria-label="Rated 4 out of 5">&#9733;&#9733;&#9733;&#9733;<span class="diary__off">&#9733;</span></span>
+        </li>
+        <li class="diary__row reveal">
+          <time class="diary__date" datetime="2026-08-22"><span class="diary__mon">Aug</span><span class="diary__day">22</span></time>
+          <span class="diary__title">Book title <span class="diary__year">Author</span></span>
+          <span class="diary__rating" role="img" aria-label="Rated 4 out of 5">&#9733;&#9733;&#9733;&#9733;<span class="diary__off">&#9733;</span></span>
+        </li>
+        <li class="diary__row reveal">
+          <time class="diary__date" datetime="2026-08-08"><span class="diary__mon">Aug</span><span class="diary__day">08</span></time>
+          <span class="diary__title">Book title <span class="diary__year">Author</span></span>
+          <span class="diary__rating" role="img" aria-label="Rated 4 out of 5">&#9733;&#9733;&#9733;&#9733;<span class="diary__off">&#9733;</span></span>
+        </li>
+        <li class="diary__row reveal">
+          <time class="diary__date" datetime="2026-07-29"><span class="diary__mon">Jul</span><span class="diary__day">29</span></time>
+          <span class="diary__title">Book title <span class="diary__year">Author</span></span>
+          <span class="diary__rating" role="img" aria-label="Rated 4 out of 5">&#9733;&#9733;&#9733;&#9733;<span class="diary__off">&#9733;</span></span>
+        </li>
+    </ol>
+  </section>
+
+  <hr class="rule">
+
+  <!-- ===== READING LIST ================================================== -->
+  <section class="wrap section" aria-labelledby="reading-list-heading">
+    <div class="section-head">
+      <span class="section-head__eyebrow">03</span>
+      <h2 id="reading-list-heading">Reading list</h2>
+    </div>
+    <div class="paperlist reveal">
+      <ol class="paperlist__list">
+          <li class="paperlist__item"><span class="paperlist__num">01</span><span class="paperlist__name">Book title</span><span class="paperlist__meta">Author</span></li>
+          <li class="paperlist__item"><span class="paperlist__num">02</span><span class="paperlist__name">Book title</span><span class="paperlist__meta">Author</span></li>
+          <li class="paperlist__item"><span class="paperlist__num">03</span><span class="paperlist__name">Book title</span><span class="paperlist__meta">Author</span></li>
+          <li class="paperlist__item"><span class="paperlist__num">04</span><span class="paperlist__name">Book title</span><span class="paperlist__meta">Author</span></li>
+          <li class="paperlist__item"><span class="paperlist__num">05</span><span class="paperlist__name">Book title</span><span class="paperlist__meta">Author</span></li>
+          <li class="paperlist__item"><span class="paperlist__num">06</span><span class="paperlist__name">Book title</span><span class="paperlist__meta">Author</span></li>
+          <li class="paperlist__item"><span class="paperlist__num">07</span><span class="paperlist__name">Book title</span><span class="paperlist__meta">Author</span></li>
+          <li class="paperlist__item"><span class="paperlist__num">08</span><span class="paperlist__name">Book title</span><span class="paperlist__meta">Author</span></li>
+      </ol>
+    </div>
   </section>
 </main>
 
